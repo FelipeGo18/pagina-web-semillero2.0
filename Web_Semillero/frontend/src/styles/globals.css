@@ -1,0 +1,26 @@
+:root {
+  --bg: #ffffff;
+  --fg: #0f172a;
+  --muted: #64748b;
+  --brand: #b91c1c; /* rojo principal */
+  --brand-dark: #991b1b; /* hover rojo oscuro */
+  --brand-light: #fee2e2; /* rojo muy suave para backgrounds */
+  --border: #e5e7eb;
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--fg); background: var(--bg); }
+
+/* Generic overlay (used by panels/modals) */
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.15); z-index: 30; }
+.overlay.blur { backdrop-filter: blur(3px); }
+
+/* Generic buttons/links */
+.link { background: transparent; border: 0; color: var(--brand); cursor: pointer; }
+.link:hover { color: var(--brand-dark); }
+.primary { background: var(--brand); color: #fff; border: 0; padding: 10px 12px; border-radius: 8px; cursor: pointer; }
+.primary:hover { background: var(--brand-dark); }
+.primary.full { width: 100%; }
+
+/* Page layout helper */
+.page { padding: 16px; }

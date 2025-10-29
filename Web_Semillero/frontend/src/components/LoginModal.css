@@ -1,0 +1,22 @@
+.modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 60; --modal-w: 560px; }
+.modal::before { content: ""; position: absolute; inset: 0; backdrop-filter: blur(3px); background: rgba(0,0,0,0.25); }
+.modal > * { position: relative; }
+.modal { padding: 16px; }
+.modal { pointer-events: none; }
+.modal .modal-header, .modal .modal-body, .modal .modal-footer { pointer-events: auto; }
+.modal { align-content: center; }
+
+.modal .modal-header { background: #fff; border: 1px solid var(--border); border-bottom: 0; border-radius: 12px 12px 0 0; padding: 16px 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; max-width: var(--modal-w); width: 100%; position: relative; }
+.modal .modal-body { background: #fff; border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding: 20px 16px; max-width: var(--modal-w); width: 100%; display: grid; gap: 12px; }
+.modal .modal-footer { background: #fff; border: 1px solid var(--border); border-top: 0; border-radius: 0 0 12px 12px; padding: 12px; max-width: var(--modal-w); width: 100%; text-align: center; }
+/* brand logo inside modal */
+.modal .modal-brand img { display: block; max-height: 100px; width: auto; max-width: 100%; height: auto; object-fit: contain; }
+/* close button pinned at top-right without overlapping content */
+.modal .modal-header .icon-btn { position: absolute; top: 8px; right: 8px; height: 28px; width: 28px; border-radius: 999px; background: #fff; border: 1px solid var(--border); }
+.modal .modal-header .icon-btn:hover { background: var(--brand-light); }
+/* centered, tidy heading */
+.modal .modal-header h3 { margin: 4px 0 0; font-size: 18px; text-align: center; font-weight: 600; }
+
+.field { display: grid; gap: 6px; }
+.field input { padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: #f8fafc; }
+.field input:focus { border-color: #fca5a5; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); outline: none; }

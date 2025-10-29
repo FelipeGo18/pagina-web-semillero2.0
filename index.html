@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+    <title>Laboratorio Remoto UPC</title>
+    
+    <style>
+        /* Restablecimiento de estilos por defecto */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* Restablecimiento de estilos por defecto */
+
+        .rubik-wet-paint-regular {
+            font-family: "Rubik Wet Paint", system-ui;
+            font-weight: 400;
+            font-style: normal;
+          }
+          
+
+
+/* Estilo para el contenedor del grid */
+.icon-grid {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columnas de igual tamaño */
+    grid-template-rows: repeat(2, 1fr); /* 2 filas de igual tamaño */
+    height: 200px; /* Ajusta la altura según tus necesidades */
+    line-gap-override: 20px; /* Espacio entre los íconos */
+    border-radius: 20px;
+    
+}
+
+/* Estilo para cada icono */
+.icon-item {
+    display: flex;
+    justify-content: center; /* Centrar el icono horizontalmente */
+    align-items: center; /* Centrar el icono verticalmente */
+    font-size: 50px; /* Tamaño del icono */
+    background-color: #f0f0f0; /* Color de fondo del icono */
+    border: 2px solid #ccc; /* Borde del icono */
+    border-radius: 10px; /* Bordes redondeados */
+    transition: background-color 0.1s ease; /* Transición para el color de fondo */
+}
+
+.icon-item:hover {
+    background-color: black; /* Color de fondo al pasar el mouse */
+}
+
+        /* Estilo para el body */
+        body {
+            font-family: rubik-wet-paint-regular ;
+            font-size: 1.3em;
+            margin: 0;
+            padding: 0;
+            background-color: #E0DADA;
+            max-width: 100%;
+            align-items: center;
+        }
+
+        /* Estilo para la barra de navegación */
+        header {
+            position: fixed;
+            border-top: 3px solid #ff0000;
+            border-bottom: 2px solid #ff0000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #252525;
+            padding: 20px 30px;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(0, 0, 0);
+            border-radius: 3px 3px 0px 0px;
+        }
+
+        /* Espacio de margen para evitar que el contenido quede oculto debajo del header */
+        .contenido-inicial {
+            width: 100vw;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            text-align: center;
+            margin-inline: 15px;
+            background-color:none;
+            color: whitesmoke;
+        }
+
+        /* Estilo para el logo */
+        .logo img {
+            border-radius: 5px;
+            width: 280px; /* Ajusta el tamaño de la imagen */
+            height: auto;
+            border: 1px solid #ff0000;
+        }
+        br{
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        /* Estilo para el menú */
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Hace que los elementos del menú se muestren en fila */
+        }
+
+        nav ul li {
+            margin-left: 30px; /* Espaciado entre los elementos del menú */
+        }
+        nav ul li a {
+            position: relative; /* Necesario para colocar el subrayado en posición absoluta */
+            color: whitesmoke;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.1s ease, font-size 1s ease; /* Transición para color y tamaño */
+        }
+        
+        nav ul li a::after {
+            content: ""; /* Crea una línea que simula el subrayado */
+            position: absolute;
+            left: 0;
+            bottom: -3px; /* Ubicación del subrayado debajo del texto */
+            height: 3px; /* Grosor de la línea */
+            background-color: rgb(255, 0, 0); /* Color de la línea */
+            width: 0; /* Comienza con una longitud de 0 */
+            transition: width 0.8s ease; /* Transición para la animación */
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%; /* Ancho completo al hacer hover */
+            transition: width 0.2s ease; /* Control de la velocidad */
+        }
+        
+        nav ul li a:hover {
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 3px 1px rgb(0, 0, 0), 3px 4px 1px rgb(62, 60, 60), 3px 4px 0px #ff0505;
+            font-size: 1.4em;
+        }
+        
+@keyframes underlineGrow {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+        /* Estilo general para el contenido */
+        p {
+            text-align: justify;
+            font-size: 1em;
+            padding-inline: 20px;
+        }
+
+        /* Estilo para el footer */
+        footer {
+            pointer-events: none; /* Evita interacciones cuando está oculto */
+            transition: opacity 1.3s ease;
+            display: flex;
+            background-color: #252525;
+            color: whitesmoke;
+            position: fixed;
+            bottom: 0;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-shadow: 1px 2px 1px #000000;
+            width: 100%;
+            padding-top: 40px;
+            padding-bottom: 30px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            border-top: 2px solid #ff0000;
+            lighting-color: 1px #FF0000;
+            box-shadow: 1px -5px 5px -5px rgb(255, 86, 86), 2px -6px 6px -6px #ae0000; /* Sombra roja solo en la parte superior */
+        }
+        #footer p {
+            margin: 5px 0; /* Espaciado entre los párrafos */
+        }
+
+        /* Estilo para cuando el footer está visible */
+        footer.visible {
+            opacity: 1; /* Muestra el footer */
+            pointer-events: all; /* Reactiva interacciones cuando está visible */
+        }
+
+        /* Estilo del contenedor de la imagen */
+        .conterimg {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            width: 100vw; /* 100% del ancho del viewport */
+            height: 100vh; /* 100% de la altura visible del viewport */
+            background-image: url('img/industry.jpg'); /* URL de la imagen de fondo */
+            background-size: cover; /* La imagen cubre todo el contenedor */
+            background-position: center; /* Centra la imagen */    
+            justify-content: center;
+            align-items: center;
+            margin-top: 120px; /* Agrega espacio superior para que no quede oculta debajo del header */
+            box-shadow: 1px 4px 5px #000000, 3px 6px 20px cornflowerblue; 
+            border-radius: 20px;
+        }
+        .conterimg p {
+            margin-left: 40px;
+            margin-right: 40px;
+
+        }
+
+        /* Estilo del título encima de la imagen */
+        .conterimg h2 {
+            color:crimson;
+            font-size: 3em;
+            text-shadow: 2px 3px 1px rgba(0, 0, 0, 0.7), 3px 5px 5px #252525, 3px 2px 10px #000000, 3px 6px 15px #b3b601, 5px 9px 20px #ff0000;
+            word-spacing: 6px;
+            letter-spacing: 3px;
+        }    
+        /* Restablecimiento de estilos por defecto */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columnas para los iconos y espaciado */
+    grid-template-rows: repeat(2, 1fr); /* 4 filas */ 
+    gap: 30px;
+    padding: 10px;
+    background-color:#E0DADA ;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    box-shadow: 2px 2px 2px #000000, 1px 1px 5px #252525;
+    border-radius: 5px;
+    align-items: center;
+    width: 100vw; /* 100% del ancho del viewport */
+    height: 100vh; /* 100% de la altura visible del viewport */
+}
+
+.icon-item {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    background-color: whitesmoke;
+    border: 5px solid #ff0000;
+    border-radius: 10px;
+    transition: background-color 0.8s ease;
+    border-radius: 100%;
+    align-items: center;
+    height: 190px;
+    width: 190px;
+    margin-left:130px;
+    text-align: center;
+    transition: color 2s ease, border 2s ease; /* Transición para color y tamaño */
+    box-shadow: 1px 4px 3px rgb(0, 0, 0); /* sombra suave */ 
+}
+.icon-item label {
+    font-family: monospace;
+    margin-top: 4px; /* Espacio entre el ícono y la etiqueta */
+    font-size: 18px; /* Ajustar el tamaño de la fuente según sea necesario */
+    color: #252525; /* Color del texto de la etiqueta */
+    text-shadow: 1px 2px 3px #252525;
+    transition: color 2s ease, border 0.2s ease; /* Transición para color y tamaño */
+    text-decoration: underline 1px;
+}
+.icon-item label:hover {
+    
+    margin-top: 5px; /* Espacio entre el ícono y la etiqueta */
+    font-size: 20px; /* Ajustar el tamaño de la fuente según sea necesario */
+    color: whitesmoke; /* Color del texto de la etiqueta */
+    text-shadow: 2px 3px 3px #0c0c0c;
+    bottom: -5px;
+    text-decoration: underline 1.2px whitesmoke;
+   
+}
+
+.icon-item:hover {
+    background-color: #FF0000;
+    border: 6px solid #232323;
+    box-shadow: 4px 4px 20px rgb(0, 0, 0);
+    
+}
+
+.empty {
+    padding: 0;
+    /* Los campos vacíos estarán transparentes y no tendrán estilos adicionales */
+}
+
+    .material-symbols-outlined {
+      font-variation-settings:'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 80;
+      font-size: 80px;
+      transition: font-size 1s ease; /* Transición para color y tamaño */
+      text-shadow: 2px 5px 2px #595757ba;
+    }
+    .material-symbols-outlined:hover{
+        font-variation-settings:'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 100;
+        color: antiquewhite;
+        font-size: 90px;
+        text-shadow: 2px 5px 2px #000000;
+      }
+    .rubik-wet-paint-regular{
+        text-align: center;
+    }
+
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado con logo y navegación -->
+    <header>
+        <!-- Logo a la izquierda -->
+        <div class="logo">
+            <a href="index.html">
+                <img src="img/Logo Labs.png" alt="Logo">
+            </a>
+        </div>
+        
+        <!-- Menú de navegación a la derecha -->
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="#">Sobre Nosotros</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br>
+
+    <!-- Contenedor de la imagen con título encima -->
+  
+  <!--  <div class="conterimg">
+        <h2 style="text-align: center;">Laboratorio Remoto de Tecnologia e Innovavion</h2>
+        <br>
+        <p  style="text-align: justify; font-size:1em; text-shadow: 1px 2px 1px #000000; padding: 20px 20px 0 20px; color:whitesmoke;"> Los laboratorios remotos y virtuales representan una evolución en la educación universitaria, permitiendo a los estudiantes adquirir habilidades técnicas en áreas como IoT, robótica, programación, mecatrónica, física y química a través de una interacción segura y accesible con equipos avanzados, sin las limitaciones físicas tradicionales. Este enfoque responde a un cambio global significativo en la enseñanza de ciencias y tecnología, que favorece modelos de aprendizaje a distancia y prácticas flexibles.
+
+            Según el informe de Contrive Datum Insights, el mercado global de laboratorios remotos y virtuales, valorado en 
+            USD 3.5 mil millones en 2022, se proyecta alcanzar los USD 8.8 mil millones para 2030, creciendo a una tasa anual
+            del 12.2%. Este crecimiento refleja la adopción cada vez mayor de estas tecnologías, que no solo conectan a estudiantes
+            con equipos y simulaciones de última generación, sino que permiten que las universidades aborden la demanda creciente de
+            laboratorios especializados de manera rentable y escalable.</p>
+            <br>
+       <p style="text-align: justify; font-size:1em; text-shadow: 1px 2px 1px #000000; padding: 20px 20px 0 20px; color:whitesmoke;"> 
+           Este tipo de infraestructura remota es especialmente valiosa en la formación universitaria avanzada, donde facilita una 
+           experiencia práctica interdisciplinaria para los estudiantes en programas críticos. Gracias a los laboratorios remotos, 
+           los estudiantes de ingeniería y ciencias exactas pueden profundizar su aprendizaje en entornos altamente especializados y 
+           colaborativos, y adquirir habilidades prácticas que responden directamente a las exigencias del mercado laboral global, 
+           donde la tecnología está en constante cambio y evolución.</p>
+    </div> 	
+-->
+    <!-- Contenido principal -->
+    <div class="contenido-inicial">
+        <p style="color: #252525; text-align: center; text-shadow: 1px 1px 1px #000000;">Este es el contenido principal.</p>
+        <p style="color: #252525; text-align: center; text-shadow: 1px 1px 1px #000000;">Más contenido...</p>
+    </div>
+
+    <div class="icon-grid">
+        <div class="empty"></div> <!-- Campo vacío para el espaciado -->
+        <div class="icon-item"><span class="material-symbols-outlined">terminal</span><label>Programacion</label></div>
+        <div class="icon-item"><span class="material-symbols-outlined">smart_toy</span><label>Robotica</label></div>
+        <div class="icon-item"><span class="material-symbols-outlined">holiday_village</span><label>Domotica</label></div>
+        <div class="empty"></div>  <!--Campo vacío para el espaciado -->
+        
+        <div class="empty"></div> <!-- Campo vacío para el espaciado -->
+        <a href="IoT.html" style="text-decoration: none; color:inherit;"><div class="icon-item"><span class="material-symbols-outlined">cloud_circle</span><label>IoT</label></div></a>
+        <div class="icon-item"><span class="material-symbols-outlined">experiment</span><label>Ciencias</label></div>
+        <div class="icon-item"><span class="material-symbols-outlined">star</span><label>3D Printer</label></div>
+        <div class="empty"></div> <!--Campo vacío para el espaciado -->
+    </div>
+    <br>
+    <p style="text-size-adjust:1em ; color: #252525; text-align: center; text-shadow: 1px 1px 1px #000000;" >Contenido adicional </p>
+    <br>
+
+    <!-- Footer --> 
+    <footer id="footer" >
+        <p>Institución de Educación Superior sujeta a inspección y vigilancia por el Ministerio de Educación Nacional. Todos los derechos reservados © 2014</p>
+        <p>CertiProf, LLC. All rights reserved. - DTPC® y DEPC® son marcas registradas de CertiProf, LLC.</p>
+    </footer>
+
+    <!-- Script para mostrar/ocultar el footer -->
+    <script>
+        // Seleccionamos el footer
+        const footer = document.getElementById('footer');
+
+        // Evento para mostrar el footer cuando el mouse entra en la ventana
+        document.addEventListener('mousemove', function(event) {
+            if (event.clientY >= window.innerHeight - 50) { // Si el mouse está en la parte inferior (últimos 100px)
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+
+</body>
+</html>

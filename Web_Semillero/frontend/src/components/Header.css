@@ -1,0 +1,36 @@
+.header {
+  position: sticky; top: 0; z-index: 20;
+  display: grid;
+  grid-template-columns: 260px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 0;
+}
+.header::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #ff0000; }
+.logo { display: inline-flex; align-items: center; gap: 8px; color: var(--brand); }
+.logo img { display: block; }
+
+.search { display: flex; align-items: center; gap: 8px; }
+.search input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 999px; outline: none; }
+.search input:focus { border-color: #fca5a5; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); }
+.search-btn { border: 1px solid var(--border); background: #f8fafc; padding: 8px 10px; border-radius: 999px; cursor: pointer; }
+
+.actions { display: inline-flex; gap: 8px; }
+.icon-btn { height: 36px; width: 36px; display: inline-grid; place-items: center; border-radius: 8px; background: #f8fafc; border: 1px solid var(--border); cursor: pointer; }
+.icon-btn:hover { background: var(--brand-light); }
+
+.dropdown { position: absolute; top: 58px; z-index: 40; min-width: 260px; background: #fff; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); padding: 8px; }
+.menu-list { display: grid; }
+.menu-item { text-align: left; padding: 10px 12px; border: 0; background: transparent; border-radius: 8px; cursor: pointer; }
+.menu-item:hover { background: #f1f5f9; }
+.menu-item:disabled { color: var(--muted); cursor: not-allowed; }
+
+.panel { padding: 12px; }
+.panel h3 { margin: 6px 6px 12px; font-size: 14px; color: var(--muted); }
+.empty { border: 1px dashed var(--border); border-radius: 8px; padding: 24px; text-align: center; color: var(--muted); }
+
+.assistant { position: fixed; right: 16px; bottom: 16px; width: 340px; max-width: calc(100% - 32px); background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); z-index: 50; }
+.assistant-header { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid var(--border); }
+.assistant-body { padding: 12px; }

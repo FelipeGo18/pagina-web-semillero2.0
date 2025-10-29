@@ -1,0 +1,257 @@
+"<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Laboratorio Virtual</title>
+  <style>
+    body {
+      margin: 0;
+      padding-top: 40px;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      transform: scale(0.9);
+      transform-origin: top center;
+      position: relative; /* 🔑 para poder ubicar la X dentro */
+      background: #fff;
+      padding: 30px 60px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 400px;
+      text-align: center;
+    }
+
+    /* Botón X */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #888;
+    }
+    .close-btn:hover {
+      color: crimson;
+      font-size: 25px;
+    }
+
+    .login-container img {
+      padding-top: 30px;
+      width: 350px;
+      margin-bottom: 40px;
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+      width: 96%;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      color: black;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .login-container a {
+      font-size: 13px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .login-container a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-login {
+      width: 100%;
+      height: 60px;
+      padding: 12px;
+      background: crimson;
+      color: black;
+      border: none;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .btn-login:hover {
+      background: #232323;
+      color: crimson;
+    }
+
+    .register-section {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .register-section h4 {
+      font-size: 14px;
+      margin-bottom: 8px;
+      font-weight: normal;
+      color: #444;
+    }
+
+    .register-section a {
+      color: crimson;
+      font-weight: bold;
+
+    }
+    
+
+    .captcha-info {
+      font-size: 12px;
+      color: #777;
+      margin-top: 20px;
+    }
+
+    .captcha-info a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    .captcha-info a:hover {
+      text-decoration: none;
+    }
+
+    .forgot {
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      width: 105%;
+      padding: 10px 40px 10px 10px; /* espacio a la derecha para el ojito */
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;                /* lo centra verticalmente */
+        transform: translateY(-32%); /* lo ajusta al centro */
+        right: 0px; /* más a la derecha */
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <!-- Botón cerrar -->
+    <button class="close-btn" onclick="cerrarVentana()">✕</button>
+
+    <!-- Logo -->
+    <img src="logolab.jpeg" alt="Logo Laboratorio">
+
+    <!-- Título -->
+    <h2 style="padding-bottom: 20px;color: black;">Bienvenido de nuevo</h2>
+
+    <!-- Formulario -->
+    <form>
+      <div class="form-group">
+        <label for="email"><b>Correo electrónico</b><span style="color: red;">*</span></label>
+        <input type="email" id="email" placeholder="Ingresa tu correo">
+      </div>
+
+    <div class="form-group password-wrapper">
+  <label for="password"><b>Contraseña</b><span style="color: red;">*</span></label>
+  <input type="password" id="password" placeholder="Ingresa tu contraseña">
+  <span class="toggle-password" onclick="togglePassword()">
+    <!-- Ojo abierto -->
+    <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="black" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+    <!-- Ojo cerrado (se oculta por defecto) -->
+    <svg id="eyeClosed" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="black" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.87 21.87 0 0 1 5.06-5.94M9.9 4.24A10.94 10.94 0 0 1 12 5c7 0 11 7 11 7a21.87 21.87 0 0 1-2.16 3.19M1 1l22 22"/>
+    </svg>
+  </span>
+</div>
+
+
+      <div class="forgot">
+        <a href="#">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="btn-login">Iniciar sesión</button>
+    </form>
+
+    <!-- Registro -->
+    <div class="register-section">
+      <h4>¿Es la primera vez que entras al laboratorio virtual?</h4>
+      <a href="#">Registrarte</a>
+    </div>
+
+    <!-- Info captcha -->
+    <p class="captcha-info">
+      Este sitio está protegido por <b>CAPTCHA enterprise</b> y se aplican la
+      <a href="https://myaccount.google.com/privacypolicy" target="_blank">Política de privacidad</a>
+      y los
+      <a href="https://policies.google.com/terms" target="_blank">Términos de servicio</a>
+      de Google.
+    </p>
+  </div>
+
+  <script>
+    function togglePassword() {
+  const input = document.getElementById("password");
+  const eyeOpen = document.getElementById("eyeOpen");
+  const eyeClosed = document.getElementById("eyeClosed");
+
+  if (input.type === "password") {
+    input.type = "text";
+    eyeOpen.style.display = "none";
+    eyeClosed.style.display = "inline";
+  } else {
+    input.type = "password";
+    eyeOpen.style.display = "inline";
+    eyeClosed.style.display = "none";
+  }
+}
+
+    function cerrarVentana() {
+      // Cierra solo la ventana del navegador
+      window.close();
+    }
+  </script>
+</body>
+</html>
+" }
