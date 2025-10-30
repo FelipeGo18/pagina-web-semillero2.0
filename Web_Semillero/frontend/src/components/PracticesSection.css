@@ -1,6 +1,6 @@
 .practices-section {
-  padding: 4rem 2rem;
-  background: #f9fafb;
+  padding: 0;
+  background: #ffffff;
   min-height: 100vh;
 }
 
@@ -9,24 +9,163 @@
   margin: 0 auto;
 }
 
+.practices-header-section {
+  background: #ff0000;
+  padding: 2rem 2rem 3rem 2rem;
+  position: relative;
+}
+
 .practices-title {
   font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
-  color: #000000;
-  margin-bottom: 0.75rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
   letter-spacing: -0.025em;
+  position: relative;
+  z-index: 1;
+}
+
+.practices-mascot-container {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  position: relative;
+  z-index: 1;
+  height: 350px;
+  align-items: center;
+}
+
+.practices-mascot {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+  transition: opacity 1s ease-in-out;
+  position: absolute;
+  opacity: 0;
+  object-fit: contain;
+  animation: float 3s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Tamaño específico para el logo del semillero */
+.mascot-logo {
+  width: 400px;
+  height: auto;
+  max-width: 450px;
+  max-height: 450px;
+  display: block;
+}
+
+/* Tamaño específico para la abeja con computador (más pequeña) */
+.mascot-abeja {
+  width: 350px;
+  height: auto;
+  max-width: 350px;
+  max-height: 350px;
+  display: block;
+}
+
+.practices-mascot.active {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.practices-mascot.active:hover {
+  animation: floatHover 3s ease-in-out infinite;
+}
+
+@keyframes floatHover {
+  0%, 100% {
+    transform: translateY(0px) scale(1.05) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05) rotate(5deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .practices-subtitle {
   font-size: 1.125rem;
   text-align: center;
-  color: #333333;
-  margin-bottom: 3rem;
-  max-width: 700px;
+  color: #ffffff;
+  margin-bottom: 0;
+  margin-top: 1.5rem;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  font-weight: 400;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-to-practices-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem auto 0;
+  padding: 1rem 2rem;
+  background: #ffffff;
+  color: #ff0000;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+}
+
+.scroll-to-practices-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  background: #fff;
+}
+
+.scroll-to-practices-btn:active {
+  transform: translateY(-1px);
+}
+
+.scroll-to-practices-btn svg {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.practices-subtitle2{
+  font-size: 2.1rem;
+  text-align: center;
+  color: #000;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0;
+  margin-top: 1.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.practices-content-section {
+  padding: 4rem 2rem;
+  background: #ffffff;
 }
 
 .practices-grid {
@@ -53,6 +192,10 @@
     font-size: 2rem;
   }
 
+  .practices-mascot {
+    width: 120px;
+  }
+
   .practices-subtitle {
     font-size: 1.1rem;
     margin-bottom: 2rem;
@@ -67,6 +210,10 @@
 @media (max-width: 480px) {
   .practices-title {
     font-size: 1.75rem;
+  }
+
+  .practices-mascot {
+    width: 500px;
   }
 
   .practices-subtitle {

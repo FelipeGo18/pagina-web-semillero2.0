@@ -1,15 +1,26 @@
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import './PracticeModal.css'
 
 export default function PracticeModal({ practice, onClose }) {
   const navigate = useNavigate()
+
+  useEffect(() => {
+    // Bloquear scroll del body cuando el modal está abierto
+    document.body.style.overflow = 'hidden'
+    
+    // Restaurar scroll cuando el modal se cierra
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [])
 
   const handleStartPractice = () => {
     navigate(`/practice/${practice.id}`)
   }
 
   return (
-    <div className="practice-modal-overlay" onClick={onClose}>
+    <div className="practice-modal-overlay">
       <div className="practice-modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="practice-modal-close" onClick={onClose}>
           ×
