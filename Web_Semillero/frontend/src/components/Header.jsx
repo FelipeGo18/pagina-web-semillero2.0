@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import './Header.css'
-import logoUrl from '../assets/LogoLab.jpg'
+import logoUrl from '../assets/logo2.png'
 import LoginModal from './LoginModal'
 
 function Icon({ title, children, onClick, ariaExpanded, ariaControls }) {
@@ -20,15 +21,15 @@ function Icon({ title, children, onClick, ariaExpanded, ariaControls }) {
 
 function Logo({ size = 48 }) {
   return (
-    <div className="logo" style={{ height: size }}>
+    <Link to="/" className="logo" style={{ height: size }} aria-label="Ir al inicio">
       <img
         src={logoUrl}
-        alt="Logo"
+        alt="Universidad Piloto de Colombia - IEEE Student Branch"
         style={{ height: '100%', width: 'auto', objectFit: 'contain', display: 'block', filter: 'drop-shadow(0 0 0.5px rgba(0,0,0,0.5))' }}
         loading="eager"
         decoding="async"
       />
-    </div>
+    </Link>
   )
 }
 

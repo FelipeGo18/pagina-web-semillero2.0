@@ -1,0 +1,258 @@
+.footer {
+  background: #2d2d2d;
+  color: #e0e0e0;
+  padding: 3rem 2rem 1rem;
+  margin-top: 4rem;
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.8fr 1.5fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Sección About (Logo) */
+.footer-about {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-logo {
+  width: 176px;
+  height: 75px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.footer-description {
+  color: #b0b0b0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Secciones generales */
+.footer-section h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgb(220, 20, 20);
+}
+
+.footer-section h4 {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.footer-section h4:first-of-type {
+  margin-top: 0;
+}
+
+.footer-section p {
+  color: #b0b0b0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0.25rem 0;
+}
+
+/* Información de contacto */
+.footer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-sedes-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.footer-subsection {
+  margin-bottom: 0;
+}
+
+.footer-subsection:last-child {
+  margin-bottom: 0;
+}
+
+/* Redes Sociales */
+.footer-social {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.social-icon {
+  width: 45px;
+  height: 45px;
+  background: rgb(220, 20, 20);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.social-icon:hover {
+  background: rgb(94, 94, 94);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Línea divisoria */
+.footer-divider {
+  height: 1px;
+  background: #4a4a4a;
+  margin: 2rem 0 1.5rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  padding-top: 1rem;
+  border-top: 1px solid #4a4a4a;
+}
+
+.footer-bottom-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-copyright {
+  color: #888888;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #b0b0b0;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: rgb(220, 20, 20);
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: rgb(220, 20, 20);
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer-social {
+    grid-column: 1 / -1;
+  }
+
+  .footer-sedes-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1.5rem 1rem;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-sedes-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .footer-bottom-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .footer-logo {
+    width: 150px;
+    height: auto;
+  }
+
+  .social-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .social-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}

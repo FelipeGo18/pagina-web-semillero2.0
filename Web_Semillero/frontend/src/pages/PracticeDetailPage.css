@@ -1,0 +1,378 @@
+.practice-detail-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+}
+
+.practice-detail-header {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back {
+  background: #ffffff;
+  border: 2px solid rgb(220, 20, 20);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+  color: rgb(220, 20, 20);
+}
+
+.btn-back:hover {
+  background: rgb(94, 94, 94);
+  color: white;
+  border-color: rgb(94, 94, 94);
+  transform: translateX(-5px);
+}
+
+.practice-detail-title-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.practice-detail-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.practice-detail-icon span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+}
+
+.practice-detail-icon svg {
+  width: 60px;
+  height: 60px;
+  /* No establecer fill ni stroke para respetar los colores inline de cada SVG */
+}
+
+.practice-detail-title-section h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #000000;
+}
+
+.practice-detail-subtitle {
+  margin: 0.5rem 0 0 0;
+  color: #333333;
+  font-size: 1.1rem;
+}
+
+.practice-progress {
+  background: #f8f9fa;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+}
+
+.practice-progress span {
+  font-weight: 600;
+  color: #000000;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.progress-bar {
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: rgb(220, 20, 20);
+  transition: width 0.5s ease;
+  border-radius: 20px;
+}
+
+.practice-detail-content {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+}
+
+.modules-section h2 {
+  font-size: 1.8rem;
+  color: #000000;
+  margin-bottom: 1.5rem;
+}
+
+.modules-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.module-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 3px solid #e5e7eb;
+  position: relative;
+}
+
+.module-card.completed {
+  border-color: #000000;
+  background: #f9f9f9;
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.module-number {
+  background: rgb(220, 20, 20);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.module-check {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: #000000;
+}
+
+.module-card.completed .module-check {
+  background: #000000;
+  border-color: #000000;
+  color: white;
+}
+
+.module-check:hover {
+  transform: scale(1.1);
+}
+
+.module-card h3 {
+  font-size: 1.5rem;
+  color: #000000;
+  margin-bottom: 0.75rem;
+}
+
+.module-card p {
+  color: #333333;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.module-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.module-duration {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.module-difficulty {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.module-difficulty.fácil {
+  background: #d4edda;
+  color: #155724;
+}
+
+.module-difficulty.intermedio {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.module-difficulty.avanzado {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.btn-start-module {
+  background: rgb(220, 20, 20);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn-start-module:hover {
+  background: rgb(94, 94, 94);
+  color: white;
+}
+
+.no-modules {
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  text-align: center;
+  color: #666;
+}
+
+.practice-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-card h3 {
+  font-size: 1.2rem;
+  color: #000000;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgb(220, 20, 20);
+}
+
+.info-item {
+  margin-bottom: 1.5rem;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-item strong {
+  display: block;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.info-item span {
+  color: #666;
+}
+
+.info-item ul,
+.sidebar-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-item li,
+.sidebar-card li {
+  color: #666;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.info-item li::before,
+.sidebar-card li::before {
+  content: "▶";
+  position: absolute;
+  left: 0;
+  color: rgb(220, 20, 20);
+  font-size: 0.7rem;
+}
+
+.practice-not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.practice-not-found button {
+  background: rgb(220, 20, 20);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.practice-not-found button:hover {
+  background: rgb(94, 94, 94);
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .practice-detail-content {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-sidebar {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .practice-detail-page {
+    padding: 1rem;
+  }
+
+  .practice-detail-header {
+    padding: 1.5rem;
+  }
+
+  .practice-detail-title-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .practice-detail-title-section h1 {
+    font-size: 1.5rem;
+  }
+
+  .practice-detail-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .module-card {
+    padding: 1.5rem;
+  }
+
+  .module-card h3 {
+    font-size: 1.25rem;
+  }
+}

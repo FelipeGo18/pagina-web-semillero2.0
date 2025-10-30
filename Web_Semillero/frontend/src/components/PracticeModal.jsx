@@ -1,0 +1,85 @@
+import { useNavigate } from 'react-router-dom'
+import './PracticeModal.css'
+
+export default function PracticeModal({ practice, onClose }) {
+  const navigate = useNavigate()
+
+  const handleStartPractice = () => {
+    navigate(`/practice/${practice.id}`)
+  }
+
+  return (
+    <div className="practice-modal-overlay" onClick={onClose}>
+      <div className="practice-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="practice-modal-close" onClick={onClose}>
+          ×
+        </button>
+        
+        <div className="practice-modal-header">
+          <div 
+            className="practice-modal-icon"
+          >
+            <span 
+              className="practice-icon-large" 
+              dangerouslySetInnerHTML={{ __html: practice.icon }}
+            />
+          </div>
+          <h2 className="practice-modal-title">{practice.title}</h2>
+        </div>
+
+        <div className="practice-modal-body">
+          <div className="practice-section">
+            <h3>Descripción</h3>
+            <p>{practice.fullDescription || practice.description}</p>
+          </div>
+
+          {practice.objectives && (
+            <div className="practice-section">
+              <h3>Objetivos</h3>
+              <ul>
+                {practice.objectives.map((obj, index) => (
+                  <li key={index}>{obj}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {practice.topics && (
+            <div className="practice-section">
+              <h3>Temas a desarrollar</h3>
+              <ul>
+                {practice.topics.map((topic, index) => (
+                  <li key={index}>{topic}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {practice.requirements && (
+            <div className="practice-section">
+              <h3>Requisitos</h3>
+              <ul>
+                {practice.requirements.map((req, index) => (
+                  <li key={index}>{req}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {practice.duration && (
+            <div className="practice-section">
+              <h3>Duración estimada</h3>
+              <p>{practice.duration}</p>
+            </div>
+          )}
+        </div>
+
+        <div className="practice-modal-footer">
+          <button className="btn-start-practice" onClick={handleStartPractice}>
+            Iniciar Práctica →
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
