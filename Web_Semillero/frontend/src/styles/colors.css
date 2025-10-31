@@ -1,0 +1,105 @@
+/* 
+  COLORES INSTITUCIONALES DEL SEMILLERO DE COMPUTACIÓN
+  Basado en COLORS.md y agents.md
+*/
+
+:root {
+  /* Colores Principales */
+  --rojo-piloto: #ff0000;
+  --negro: #000000;
+  --blanco: #ffffff;
+  
+  /* Escala de Grises */
+  --gris-oscuro: #333333;
+  --gris-medio: #666666;
+  --gris-claro: #f9f9f9;
+  --gris-borde: #e5e7eb;
+  --gris-fondo: #f5f5f5;
+  
+  /* Colores de Estado (complementarios) */
+  --exito: #4caf50;
+  --advertencia: #ffd700;
+  --error: var(--rojo-piloto);
+  
+  /* Sombras */
+  --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --sombra-roja: 0 4px 15px rgba(255, 0, 0, 0.3);
+  --sombra-roja-hover: 0 6px 20px rgba(255, 0, 0, 0.4);
+  
+  /* Transiciones */
+  --transicion-rapida: all 0.3s ease;
+  --transicion-lenta: all 0.5s ease;
+  
+  /* Bordes */
+  --borde-radius-sm: 4px;
+  --borde-radius-md: 8px;
+  --borde-radius-lg: 12px;
+  --borde-radius-xl: 50px;
+}
+
+/* Clases utilitarias de colores */
+.bg-rojo {
+  background-color: var(--rojo-piloto);
+  color: var(--blanco);
+}
+
+.text-rojo {
+  color: var(--rojo-piloto);
+}
+
+.border-rojo {
+  border-color: var(--rojo-piloto);
+}
+
+.bg-gris-claro {
+  background-color: var(--gris-claro);
+}
+
+.text-negro {
+  color: var(--negro);
+}
+
+/* Estilos de botones institucionales */
+.btn-institucional {
+  background: var(--rojo-piloto);
+  color: var(--blanco);
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: var(--borde-radius-xl);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transicion-rapida);
+  box-shadow: var(--sombra-roja);
+}
+
+.btn-institucional:hover {
+  background: var(--gris-medio);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-roja-hover);
+}
+
+.btn-institucional:disabled {
+  background: var(--gris-claro);
+  color: var(--gris-medio);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Estilos de tarjetas institucionales */
+.card-institucional {
+  background: var(--blanco);
+  border-radius: var(--borde-radius-lg);
+  padding: 2rem;
+  box-shadow: var(--sombra-suave);
+  border-left: 6px solid var(--rojo-piloto);
+}
+
+/* Badge institucional */
+.badge-institucional {
+  background: var(--rojo-piloto);
+  color: var(--blanco);
+  padding: 0.5rem 1rem;
+  border-radius: var(--borde-radius-xl);
+  font-weight: 600;
+  font-size: 0.9rem;
+}

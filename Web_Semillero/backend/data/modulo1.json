@@ -1,0 +1,458 @@
+{
+  "id": 1,
+  "name": "Módulo 1",
+  "title": "Introducción y Primeros Pasos",
+  "description": "Fundamentos de Linux y comandos básicos",
+  "classes": {
+    "1": {
+      "id": "1.1",
+      "title": "¿Qué es Linux y la Terminal?",
+      "description": "Fundamentos de Linux y tu primera interacción con la línea de comandos",
+      "sections": [
+        {
+          "title": "🐧 ¿Qué es Linux?",
+          "content": "<p>Linux es un sistema operativo de <strong>código abierto</strong> creado por Linus Torvalds en 1991. A diferencia de Windows o macOS, Linux es:</p><ul><li><strong>Gratuito:</strong> No necesitas pagar licencias para usarlo</li><li><strong>Personalizable:</strong> Puedes modificar todo según tus necesidades</li><li><strong>Seguro:</strong> Menos vulnerable a virus y malware</li><li><strong>Poderoso:</strong> Usado en el 96% de los servidores web del mundo</li></ul><div class=\"info-box\"><strong>💡 ¿Sabías qué?</strong><br>Android, el sistema operativo móvil más usado del mundo, está basado en Linux. También lo usan Google, Facebook, NASA y la mayoría de supercomputadoras.</div>"
+        },
+        {
+          "title": "💻 La Terminal: Tu Nuevo Superpoder",
+          "content": "<p>La <strong>terminal</strong> (también llamada consola o línea de comandos) es una interfaz de texto para comunicarte con tu computadora.</p><h4>¿Por qué usar la terminal?</h4><ul><li><strong>Velocidad:</strong> Escribir comandos es más rápido que navegar por menús</li><li><strong>Precisión:</strong> Puedes especificar exactamente qué quieres hacer</li><li><strong>Automatización:</strong> Puedes repetir tareas fácilmente con scripts</li><li><strong>Poder:</strong> Acceso a funciones que no existen en interfaces gráficas</li></ul><div class=\"warning-box\"><strong>⚠️ Con gran poder viene gran responsabilidad</strong><br>En la terminal, el sistema hace exactamente lo que le pides.</div>"
+        },
+        {
+          "title": "🗺️ El comando pwd",
+          "content": "<p>Imagina que estás en un edificio enorme. Para no perderte, necesitas saber siempre <strong>dónde estás</strong>.</p><h4>El Comando pwd (Print Working Directory)</h4><p><code>pwd</code> es como un GPS para tu terminal. Te dice tu ubicación actual.</p><div class=\"code-example\"><code>$ pwd</code><br><code>/home/estudiante</code></div><div class=\"tip-box\"><strong>💡 Consejo Pro:</strong><br>Siempre ejecuta <code>pwd</code> antes de hacer operaciones importantes.</div>"
+        }
+      ],
+      "exercises": [
+        {
+          "id": 1,
+          "title": "Ejercicio 1: Tu primera ubicación",
+          "instruction": "Descubre dónde te encuentras en el sistema de archivos",
+          "expectedCommand": "pwd",
+          "hints": [
+            "💡 Es un comando de 3 letras",
+            "💡 Piensa en \"Imprimir Directorio de Trabajo\"",
+            "💡 En inglés: Print Working Directory"
+          ],
+          "explanation": "El comando <code>pwd</code> te mostrará la ruta completa de tu ubicación actual.",
+          "successMessage": "¡Excelente! Ahora sabes dónde estás. Este comando será tu mejor amigo."
+        },
+        {
+          "id": 2,
+          "title": "Ejercicio 2: Repetir para memorizar",
+          "instruction": "Ejecuta pwd nuevamente para familiarizarte",
+          "expectedCommand": "pwd",
+          "hints": [
+            "💡 El mismo comando que antes",
+            "💡 pwd muestra tu ubicación actual"
+          ],
+          "explanation": "La repetición es clave para memorizar comandos.",
+          "successMessage": "¡Perfecto! Practicar es la clave del éxito."
+        }
+      ],
+      "additionalContent": {
+        "commonMistakes": [
+          "<strong>PWD en mayúsculas:</strong> Linux distingue mayúsculas y minúsculas. <code>PWD</code> no funcionará",
+          "<strong>Espacios innecesarios:</strong> <code>p wd</code> ❌ debe ser <code>pwd</code> ✓"
+        ],
+        "relatedCommands": [
+          {
+            "command": "cd",
+            "description": "Cambia tu ubicación"
+          },
+          {
+            "command": "ls",
+            "description": "Lista el contenido de tu ubicación"
+          }
+        ],
+        "realWorldUse": "<h4>📱 Casos de Uso Reales:</h4><ul><li><strong>Desarrollo web:</strong> Verificar carpeta antes de ejecutar servidor</li><li><strong>Administración:</strong> Confirmar ubicación antes de eliminar archivos</li></ul>"
+      }
+    },
+    "2": {
+      "id": "1.2",
+      "title": "Tu Primera Interacción",
+      "description": "Aprende a obtener información del sistema con el comando date",
+      "sections": [
+        {
+          "title": "📅 El comando date",
+          "content": "<p>El comando <strong>date</strong> muestra la fecha y hora actual del sistema.</p><h4>¿Para qué sirve?</h4><ul><li>Ver la fecha y hora actual</li><li>Verificar la zona horaria del sistema</li><li>Usar en scripts para registrar cuándo se ejecutan</li></ul><div class=\"code-example\"><code>$ date</code><br><code>Jue 31 Oct 2025 14:30:25 -05</code></div>"
+        },
+        {
+          "title": "⚙️ Opciones de date",
+          "content": "<p>Puedes personalizar la salida de date:</p><div class=\"code-example\"><code>date +%Y</code> <span class=\"comment\"># Solo el año: 2025</span><br><code>date +%m</code> <span class=\"comment\"># Solo el mes: 10</span><br><code>date +%d</code> <span class=\"comment\"># Solo el día: 31</span><br><code>date +%Y-%m-%d</code> <span class=\"comment\"># Formato: 2025-10-31</span></div><div class=\"tip-box\"><strong>💡 Tip Profesional:</strong><br>Usa <code>date +%Y%m%d</code> para nombres de archivos de respaldo:<br><code>backup_20251031.tar.gz</code></div>"
+        },
+        {
+          "title": "👤 Identidad - whoami",
+          "content": "<p>El comando <code>whoami</code> te dice con qué usuario estás logueado.</p><div class=\"code-example\"><code>$ whoami</code><br><code>estudiante</code></div><div class=\"warning-box\"><strong>⚠️ Usuario vs Root</strong><br>Si <code>whoami</code> devuelve \"root\", tienes poderes de superusuario. ¡Ten cuidado!</div>"
+        }
+      ],
+      "exercises": [
+        {
+          "id": 1,
+          "title": "Ejercicio 1: ¿Qué hora es?",
+          "instruction": "Obtén la fecha y hora actual del sistema",
+          "expectedCommand": "date",
+          "hints": [
+            "📅 Piensa en la palabra en inglés para \"fecha\"",
+            "💡 Son solo 4 letras",
+            "💡 Empieza con \"d\""
+          ],
+          "explanation": "<code>date</code> muestra fecha, hora y zona horaria.",
+          "successMessage": "¡Genial! Ahora sabes consultar la fecha del sistema."
+        },
+        {
+          "id": 2,
+          "title": "Ejercicio 2: ¿Quién eres?",
+          "instruction": "Descubre con qué usuario estás trabajando",
+          "expectedCommand": "whoami",
+          "hints": [
+            "👤 \"¿Quién soy yo?\" en inglés",
+            "💡 Es una sola palabra sin espacios",
+            "💡 who + am + i todo junto"
+          ],
+          "explanation": "<code>whoami</code> muestra tu nombre de usuario actual.",
+          "successMessage": "¡Perfecto! Conoces tu identidad en el sistema."
+        }
+      ],
+      "additionalContent": {
+        "commonMistakes": [
+          "<strong>Date con mayúscula:</strong> <code>Date</code> ❌ debe ser <code>date</code> ✓",
+          "<strong>Whoami separado:</strong> <code>who am i</code> es diferente a <code>whoami</code>"
+        ],
+        "relatedCommands": [
+          {
+            "command": "cal",
+            "description": "Muestra un calendario del mes"
+          },
+          {
+            "command": "uptime",
+            "description": "Tiempo que lleva encendido el sistema"
+          }
+        ],
+        "realWorldUse": "<h4>📱 Aplicaciones Prácticas:</h4><ul><li><strong>Logs:</strong> Registrar cuándo ocurren eventos</li><li><strong>Backups:</strong> Crear archivos con timestamp</li></ul>"
+      }
+    },
+    "3": {
+      "id": "1.3",
+      "title": "Navegación Básica",
+      "description": "Aprende a listar y explorar archivos y directorios",
+      "sections": [
+        {
+          "title": "📂 Sistema de Archivos en Linux",
+          "content": "<p>En Linux, todo está organizado en una estructura de árbol que comienza desde la raíz (<code>/</code>).</p><div class=\"code-example\"><pre>\n/                    (raíz)\n├── home/            (usuarios)\n├── etc/             (configuración)\n├── var/             (logs, cache)\n└── usr/             (programas)\n              </pre></div><div class=\"info-box\"><strong>💡 Concepto Clave:</strong><br>En Linux, <strong>todo es un archivo</strong>. Los directorios son archivos especiales.</div>"
+        },
+        {
+          "title": "📋 El comando ls",
+          "content": "<p><code>ls</code> viene de \"list\" (listar). Muestra archivos y carpetas del directorio actual.</p><h4>Opciones útiles:</h4><div class=\"code-example\"><code>ls</code> <span class=\"comment\"># Lista simple</span><br><code>ls -l</code> <span class=\"comment\"># Lista detallada</span><br><code>ls -a</code> <span class=\"comment\"># Incluye archivos ocultos</span><br><code>ls -lh</code> <span class=\"comment\"># Tamaños legibles (KB, MB)</span></div>"
+        },
+        {
+          "title": "🎨 Códigos de Color",
+          "content": "<p>En la mayoría de sistemas, <code>ls</code> usa colores:</p><ul><li><strong>Azul:</strong> Directorios (carpetas)</li><li><strong>Verde:</strong> Archivos ejecutables</li><li><strong>Rojo:</strong> Archivos comprimidos (.zip, .tar.gz)</li><li><strong>Blanco/Gris:</strong> Archivos normales</li></ul>"
+        }
+      ],
+      "exercises": [
+        {
+          "id": 1,
+          "title": "Ejercicio 1: Listado básico",
+          "instruction": "Lista los archivos del directorio actual",
+          "expectedCommand": "ls",
+          "hints": [
+            "📋 Comando de 2 letras para \"listar\"",
+            "💡 En inglés: LiSt",
+            "💡 Es uno de los comandos más cortos"
+          ],
+          "explanation": "<code>ls</code> muestra archivos y directorios en formato simple.",
+          "successMessage": "¡Bien! Este es el primer paso para explorar el sistema."
+        },
+        {
+          "id": 2,
+          "title": "Ejercicio 2: Vista detallada",
+          "instruction": "Lista archivos con información detallada (permisos, tamaño, fecha)",
+          "expectedCommand": "ls -l",
+          "hints": [
+            "💡 Usa ls con la opción de \"lista larga\"",
+            "💡 La opción es una sola letra: l",
+            "💡 Formato: ls -l"
+          ],
+          "explanation": "<code>ls -l</code> muestra formato largo con todos los detalles.",
+          "successMessage": "¡Excelente! Ahora ves mucha más información."
+        },
+        {
+          "id": 3,
+          "title": "Ejercicio 3: Ver archivos ocultos",
+          "instruction": "Lista todos los archivos, incluyendo los ocultos",
+          "expectedCommand": "ls -a",
+          "hints": [
+            "💡 La opción -a muestra \"all\" (todos)",
+            "💡 Los archivos ocultos empiezan con punto (.)",
+            "💡 Formato: ls -a"
+          ],
+          "explanation": "<code>ls -a</code> revela archivos y carpetas ocultos.",
+          "successMessage": "¡Perfecto! Descubriste los archivos ocultos."
+        }
+      ],
+      "additionalContent": {
+        "commonMistakes": [
+          "<strong>Confundir -l con -1:</strong> <code>-l</code> (L minúscula) es lista larga, <code>-1</code> (uno) es una columna",
+          "<strong>Olvidar el guion:</strong> <code>ls l</code> ❌ debe ser <code>ls -l</code> ✓"
+        ],
+        "relatedCommands": [
+          {
+            "command": "tree",
+            "description": "Muestra estructura en forma de árbol"
+          },
+          {
+            "command": "file",
+            "description": "Identifica el tipo de un archivo"
+          }
+        ],
+        "realWorldUse": "<h4>📱 Casos Profesionales:</h4><ul><li><strong>Desarrollo:</strong> Verificar archivos .git ocultos</li><li><strong>DevOps:</strong> Revisar logs por fecha</li></ul>"
+      }
+    },
+    "4": {
+      "id": "1.4",
+      "title": "Moviéndote por el Sistema",
+      "description": "Domina el arte de cambiar de directorio y navegar",
+      "sections": [
+        {
+          "title": "🚶 El comando cd",
+          "content": "<p><code>cd</code> significa \"Change Directory\" (Cambiar Directorio). Te permite moverte entre carpetas.</p><div class=\"code-example\"><code>cd [destino]</code></div><div class=\"info-box\"><strong>💡 Curiosidad:</strong><br><code>cd</code> es un \"built-in\" de la shell, parte integral de tu terminal.</div>"
+        },
+        {
+          "title": "🏠 El Directorio Home",
+          "content": "<p>Tu <strong>directorio home</strong> es tu espacio personal en el sistema.</p><h4>Formas de referirte a Home:</h4><ul><li><code>~</code> - El símbolo tilde</li><li><code>$HOME</code> - Variable de entorno</li><li><code>/home/tu_usuario</code> - Ruta completa</li></ul><div class=\"code-example\"><code>cd ~</code> <span class=\"comment\"># Ir a home</span><br><code>cd</code> <span class=\"comment\"># Sin argumentos también va a home</span></div>"
+        },
+        {
+          "title": "🧭 Símbolos Especiales",
+          "content": "<p>Atajos especiales para navegar:</p><ul><li><code>~</code> - Directorio home</li><li><code>.</code> - Directorio actual</li><li><code>..</code> - Directorio padre (un nivel arriba)</li><li><code>-</code> - Directorio anterior</li><li><code>/</code> - Raíz del sistema</li></ul><div class=\"code-example\"><code>cd ..</code> <span class=\"comment\"># Subir un nivel</span><br><code>cd -</code> <span class=\"comment\"># Volver al anterior</span></div>"
+        }
+      ],
+      "exercises": [
+        {
+          "id": 1,
+          "title": "Ejercicio 1: Volver a casa",
+          "instruction": "Navega a tu directorio home usando el símbolo ~",
+          "expectedCommand": "cd ~",
+          "hints": [
+            "🏠 Necesitas cambiar al directorio home",
+            "💡 Usa cd con el símbolo de home",
+            "💡 El símbolo ~ representa tu home"
+          ],
+          "explanation": "<code>cd ~</code> te lleva siempre a tu directorio personal.",
+          "successMessage": "¡Perfecto! Ahora estás en tu directorio home."
+        },
+        {
+          "id": 2,
+          "title": "Ejercicio 2: Verificar ubicación",
+          "instruction": "Confirma que estás en home usando pwd",
+          "expectedCommand": "pwd",
+          "hints": [
+            "📍 Usa el comando para ver ubicación",
+            "💡 Ya lo aprendiste en la primera clase",
+            "💡 Print Working Directory"
+          ],
+          "explanation": "Combinar <code>cd</code> con <code>pwd</code> es buena práctica.",
+          "successMessage": "¡Excelente! Confirmaste tu ubicación."
+        },
+        {
+          "id": 3,
+          "title": "Ejercicio 3: Navegar a la raíz",
+          "instruction": "Ve al directorio raíz del sistema usando /",
+          "expectedCommand": "cd /",
+          "hints": [
+            "🌳 La raíz se representa con una barra",
+            "💡 cd seguido de /",
+            "💡 Es el directorio padre de todo"
+          ],
+          "explanation": "<code>cd /</code> te lleva al nivel más alto del sistema.",
+          "successMessage": "¡Genial! Exploraste la raíz del sistema."
+        }
+      ],
+      "additionalContent": {
+        "commonMistakes": [
+          "<strong>Espacios en nombres:</strong> <code>cd Mi Carpeta</code> ❌ usa <code>cd \"Mi Carpeta\"</code> ✓",
+          "<strong>Mayúsculas:</strong> <code>documentos ≠ Documentos</code> en Linux",
+          "<strong>Barra invertida:</strong> Windows usa \\, Linux usa /"
+        ],
+        "relatedCommands": [
+          {
+            "command": "pushd",
+            "description": "Guarda directorio y cambia a otro"
+          },
+          {
+            "command": "popd",
+            "description": "Vuelve al directorio guardado"
+          }
+        ],
+        "realWorldUse": "<h4>📱 Flujos de Trabajo:</h4><ul><li><strong>Web:</strong> cd ~/proyectos/mi-web && npm start</li><li><strong>SysAdmin:</strong> cd /var/log && tail -f syslog</li></ul>"
+      }
+    },
+    "5": {
+      "id": "2.1",
+      "title": "Crear Archivos Vacíos",
+      "description": "Domina la creación de archivos con el comando touch",
+      "sections": [
+        {
+          "title": "✨ El comando touch",
+          "content": "<p>El comando <strong>touch</strong> se usa para crear archivos vacíos.</p><h4>¿Qué hace touch?</h4><ol><li>Si el archivo <strong>no existe</strong>, lo crea vacío</li><li>Si el archivo <strong>ya existe</strong>, actualiza su fecha sin alterar contenido</li></ol><div class=\"code-example\"><code>touch nombre_archivo.extension</code></div>"
+        },
+        {
+          "title": "📝 Nombres de Archivos",
+          "content": "<h4>Reglas de Oro:</h4><ul><li><strong>Sensibilidad:</strong> <code>archivo.txt ≠ Archivo.txt</code></li><li><strong>Caracteres:</strong> Letras, números, punto, guion, guion bajo</li><li><strong>Espacios:</strong> Evítalos o escápalos</li></ul><div class=\"code-example\"><strong>✅ Buenos nombres:</strong><br><code>touch reporte.txt</code><br><code>touch mi_archivo_2024.log</code><br><code>touch config-backup.json</code></div>"
+        },
+        {
+          "title": "🚀 Uso Avanzado",
+          "content": "<h4>Crear múltiples archivos:</h4><div class=\"code-example\"><code>touch archivo1.txt archivo2.txt archivo3.txt</code></div><div class=\"tip-box\"><strong>💡 Productividad:</strong><br><code>touch index.html styles.css script.js</code><br>Crea la estructura de un proyecto web en un comando.</div>"
+        }
+      ],
+      "exercises": [
+        {
+          "id": 1,
+          "title": "Ejercicio 1: Tu primer archivo",
+          "instruction": "Crea un archivo llamado \"practica.txt\"",
+          "expectedCommand": "touch practica.txt",
+          "hints": [
+            "✨ Usa el comando para \"tocar\" y crear archivo",
+            "💡 Especifica el nombre completo con extensión",
+            "💡 Formato: touch nombre.extension"
+          ],
+          "explanation": "<code>touch practica.txt</code> crea un archivo vacío.",
+          "successMessage": "¡Excelente! Has creado tu primer archivo en Linux."
+        },
+        {
+          "id": 2,
+          "title": "Ejercicio 2: Verificar la creación",
+          "instruction": "Lista los archivos para confirmar que \"practica.txt\" existe",
+          "expectedCommand": "ls",
+          "hints": [
+            "📋 Usa el comando para listar archivos",
+            "💡 Ya lo aprendiste antes",
+            "💡 Son 2 letras"
+          ],
+          "explanation": "Siempre verifica que el archivo se creó correctamente.",
+          "successMessage": "¡Bien! Confirmaste que el archivo existe."
+        },
+        {
+          "id": 3,
+          "title": "Ejercicio 3: Múltiples archivos",
+          "instruction": "Crea tres archivos: \"file1.txt\", \"file2.txt\" y \"file3.txt\"",
+          "expectedCommand": "touch file1.txt file2.txt file3.txt",
+          "hints": [
+            "💡 Puedes crear varios separados por espacios",
+            "💡 touch archivo1 archivo2 archivo3",
+            "💡 No olvides las extensiones .txt"
+          ],
+          "explanation": "<code>touch</code> puede crear múltiples archivos a la vez.",
+          "successMessage": "¡Increíble! Creaste múltiples archivos eficientemente."
+        }
+      ],
+      "additionalContent": {
+        "commonMistakes": [
+          "<strong>Espacios sin escapar:</strong> <code>touch mi archivo.txt</code> crea DOS archivos",
+          "<strong>Confundir con mkdir:</strong> touch crea archivos, mkdir crea carpetas"
+        ],
+        "relatedCommands": [
+          {
+            "command": "echo > archivo.txt",
+            "description": "Crea archivo con contenido"
+          },
+          {
+            "command": "nano archivo.txt",
+            "description": "Crea y edita en un paso"
+          }
+        ],
+        "realWorldUse": "<h4>📱 Casos Profesionales:</h4><ul><li><strong>Proyecto:</strong> touch README.md LICENSE .gitignore</li><li><strong>Logs:</strong> touch app.log error.log</li></ul>"
+      }
+    },
+    "6": {
+      "id": "2.2",
+      "title": "Crear Directorios",
+      "description": "Aprende a crear y organizar carpetas en tu sistema",
+      "sections": [
+        {
+          "title": "📁 El comando mkdir",
+          "content": "<p><code>mkdir</code> es el comando para crear directorios (carpetas).</p><h4>¿Por qué es importante?</h4><ul><li><strong>Organización:</strong> Mantener archivos estructurados</li><li><strong>Proyectos:</strong> Crear estructura de carpetas</li><li><strong>Automatización:</strong> Scripts que crean directorios</li></ul><div class=\"code-example\"><code>mkdir nombre_directorio</code></div>"
+        },
+        {
+          "title": "🎯 Opciones Poderosas",
+          "content": "<h4>1. Modo Verbose (-v)</h4><div class=\"code-example\"><code>mkdir -v nueva_carpeta</code><br><code>mkdir: se ha creado el directorio 'nueva_carpeta'</code></div><h4>2. Crear Padres (-p)</h4><div class=\"code-example\"><code>mkdir -p proyectos/web/frontend/src</code></div><p>Crea TODA la estructura aunque no existan las carpetas padres.</p>"
+        },
+        {
+          "title": "🔍 Verificar lo Creado",
+          "content": "<p>Después de crear directorios, verifica:</p><div class=\"code-example\"><code>ls -ld */</code> <span class=\"comment\"># Solo carpetas</span><br><code>ls -l</code> <span class=\"comment\"># Lista detallada</span></div>"
+        }
+      ],
+      "exercises": [
+        {
+          "id": 1,
+          "title": "Ejercicio 1: Tu primera carpeta",
+          "instruction": "Crea un directorio llamado \"ejercicios\"",
+          "expectedCommand": "mkdir ejercicios",
+          "hints": [
+            "📁 Comando para \"hacer directorio\"",
+            "💡 Son las siglas de Make Directory",
+            "💡 Formato: mkdir nombre_carpeta"
+          ],
+          "explanation": "<code>mkdir ejercicios</code> crea un nuevo directorio vacío.",
+          "successMessage": "¡Perfecto! Has creado tu primera carpeta."
+        },
+        {
+          "id": 2,
+          "title": "Ejercicio 2: Múltiples carpetas",
+          "instruction": "Crea tres carpetas: \"carpeta1\", \"carpeta2\" y \"carpeta3\"",
+          "expectedCommand": "mkdir carpeta1 carpeta2 carpeta3",
+          "hints": [
+            "💡 Puedes crear varias separadas por espacios",
+            "💡 mkdir carpeta1 carpeta2 carpeta3",
+            "💡 Todas en un comando"
+          ],
+          "explanation": "<code>mkdir</code> puede crear múltiples directorios.",
+          "successMessage": "¡Excelente! Creaste múltiples carpetas eficientemente."
+        },
+        {
+          "id": 3,
+          "title": "Ejercicio 3: Estructura anidada",
+          "instruction": "Crea \"proyectos/web/frontend\" usando -p",
+          "expectedCommand": "mkdir -p proyectos/web/frontend",
+          "hints": [
+            "💡 Necesitas la opción -p para crear padres",
+            "💡 Formato: mkdir -p ruta/completa/anidada",
+            "💡 Las barras / separan niveles"
+          ],
+          "explanation": "<code>mkdir -p</code> crea toda la jerarquía necesaria.",
+          "successMessage": "¡Increíble! Dominaste estructuras complejas."
+        },
+        {
+          "id": 4,
+          "title": "Ejercicio 4: Verificar con ls",
+          "instruction": "Lista los directorios creados",
+          "expectedCommand": "ls",
+          "hints": [
+            "📋 Usa el comando de listado",
+            "💡 Ya lo conoces",
+            "💡 2 letras"
+          ],
+          "explanation": "Siempre verifica que los directorios se crearon.",
+          "successMessage": "¡Bien! Confirmaste la creación de carpetas."
+        }
+      ],
+      "additionalContent": {
+        "commonMistakes": [
+          "<strong>Olvidar -p:</strong> <code>mkdir a/b/c</code> falla si \"a\" no existe",
+          "<strong>Confundir con touch:</strong> mkdir crea CARPETAS, no archivos",
+          "<strong>Nombres con espacios:</strong> <code>mkdir mi carpeta</code> crea DOS carpetas"
+        ],
+        "relatedCommands": [
+          {
+            "command": "rmdir",
+            "description": "Elimina directorios VACÍOS"
+          },
+          {
+            "command": "rm -r",
+            "description": "Elimina directorios con contenido"
+          }
+        ],
+        "realWorldUse": "<h4>📱 Casos Profesionales:</h4><ul><li><strong>Node.js:</strong> mkdir -p myapp/{src,public,tests}</li><li><strong>Backups:</strong> mkdir -p backups/$(date +%Y/%m/%d)</li></ul>"
+      }
+    }
+  }
+}

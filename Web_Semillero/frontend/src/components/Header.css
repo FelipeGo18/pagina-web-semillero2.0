@@ -94,6 +94,205 @@
 .menu-item:hover { background: #f1f5f9; }
 .menu-item:disabled { color: var(--muted); cursor: not-allowed; }
 
+/* Nuevo diseño del menú de perfil */
+.profile-menu {
+  min-width: 280px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.profile-menu-header {
+  background: linear-gradient(135deg, rgb(220, 20, 20) 0%, rgb(180, 20, 20) 100%);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+}
+
+.profile-menu-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  background: white;
+}
+
+.profile-menu-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-initial {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgb(220, 20, 20), rgb(180, 20, 20));
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profile-menu-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-menu-name {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-menu-email {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-menu-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.profile-menu-badge.student {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+.profile-menu-badge.instructor {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.profile-menu-badge.admin {
+  background: rgba(255, 255, 255, 0.35);
+  color: white;
+}
+
+.profile-menu-options {
+  padding: 0.5rem;
+}
+
+.profile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  color: #333;
+  text-align: left;
+}
+
+.profile-menu-item:hover {
+  background: #f8f9fa;
+  transform: translateX(4px);
+}
+
+.profile-menu-item .menu-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #555;
+}
+
+.profile-menu-item:hover .menu-icon {
+  color: rgb(220, 20, 20);
+}
+
+.profile-menu-item .menu-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Admin Item Styles */
+.profile-menu-item.admin-item {
+  background: linear-gradient(135deg, rgba(220, 20, 20, 0.1), rgba(220, 20, 20, 0.05));
+  border: 1px solid rgba(220, 20, 20, 0.2);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.profile-menu-item.admin-item:hover {
+  background: linear-gradient(135deg, rgba(220, 20, 20, 0.15), rgba(220, 20, 20, 0.08));
+  border-color: rgba(220, 20, 20, 0.4);
+  box-shadow: 0 2px 8px rgba(220, 20, 20, 0.2);
+}
+
+.profile-menu-item.admin-item .menu-icon {
+  font-size: 1.2rem;
+  color: rgb(220, 20, 20);
+}
+
+.profile-menu-footer {
+  padding: 0.5rem;
+  border-top: 1px solid #eee;
+}
+
+.profile-menu-logout {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  color: #dc143c;
+  font-weight: 600;
+  text-align: left;
+}
+
+.profile-menu-logout:hover {
+  background: #fff5f5;
+  transform: translateX(4px);
+}
+
+.profile-menu-logout .menu-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #dc143c;
+}
+
+.profile-menu-logout .menu-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+
 .panel { padding: 12px; }
 .panel h3 { margin: 6px 6px 12px; font-size: 14px; color: var(--muted); }
 .empty { border: 1px dashed var(--border); border-radius: 8px; padding: 24px; text-align: center; color: var(--muted); }

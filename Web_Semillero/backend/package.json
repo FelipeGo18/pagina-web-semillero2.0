@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
     "start": "cross-env NODE_ENV=production node src/server.js",
+    "seed:modules": "node src/scripts/seedModules.js",
+    "seed:practices": "node src/scripts/seedPractices.js",
+    "seed:all": "node src/scripts/seedAll.js",
     "lint": "echo 'no linter configured'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,10 +17,15 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "axios": "^1.13.1",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "2.8.5",
-    "dotenv": "17.2.2",
+    "dotenv": "^17.2.2",
     "express": "5.1.0",
     "helmet": "8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.2",
     "morgan": "1.10.1"
   },
   "devDependencies": {

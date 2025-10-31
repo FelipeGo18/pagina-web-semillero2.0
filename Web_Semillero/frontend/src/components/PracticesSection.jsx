@@ -1,13 +1,36 @@
 import { useState, useEffect } from 'react'
 import PracticeCard from './PracticeCard'
 import './PracticesSection.css'
-import { practicesData } from '../data/practicesData'
+import { getPracticesWithCache } from '../services/practicesApi'
+import { XCircleIcon } from './Icons'
 import logoSemillero from '../assets/logo_semillero.png'
 import abejaComputador from '../assets/Abeja Computador.png'
 
 export default function PracticesSection() {
   const [currentImage, setCurrentImage] = useState(0);
+  const [practices, setPractices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const images = [logoSemillero, abejaComputador];
+  
+  // Cargar prácticas desde la API
+  useEffect(() => {
+    const loadPractices = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await getPracticesWithCache();
+        setPractices(data);
+      } catch (err) {
+        console.error('Error loading practices:', err);
+        setError(err.message || 'Error al cargar las prácticas');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPractices();
+  }, []);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -67,11 +90,32 @@ export default function PracticesSection() {
       <div className="practices-content-section">
         <p className="practices-subtitle2">Escoge una practica</p>
         <div className="practices-container">
-          <div className="practices-grid">
-            {practicesData.map((practice) => (
-              <PracticeCard key={practice.id} practice={practice} />
-            ))}
-          </div>
+          {loading && (
+            <div className="loading-state">
+              <div className="spinner"></div>
+              <p>Cargando prácticas...</p>
+            </div>
+          )}
+          
+          {error && (
+            <div className="error-state">
+              <p>
+                <XCircleIcon size={20} style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+                {error}
+              </p>
+              <button onClick={() => window.location.reload()} className="retry-btn">
+                Reintentar
+              </button>
+            </div>
+          )}
+          
+          {!loading && !error && (
+            <div className="practices-grid">
+              {practices.map((practice) => (
+                <PracticeCard key={practice.id} practice={practice} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -152,29 +152,30 @@
   font-weight: 600;
 }
 
-.module-check {
-  width: 32px;
+.module-progress-indicator {
+  min-width: 40px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: 16px;
   border: 2px solid #ddd;
   background: white;
-  cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  color: #000000;
+  color: #666;
+  padding: 0 0.75rem;
 }
 
-.module-card.completed .module-check {
+.module-card.completed .module-progress-indicator {
   background: #000000;
   border-color: #000000;
   color: white;
-}
-
-.module-check:hover {
-  transform: scale(1.1);
+  min-width: 32px;
+  width: 32px;
+  border-radius: 50%;
+  padding: 0;
 }
 
 .module-card h3 {
@@ -233,11 +234,20 @@
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-start-module:hover {
   background: rgb(94, 94, 94);
   color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-start-module svg {
+  flex-shrink: 0;
 }
 
 .no-modules {
@@ -374,5 +384,86 @@
 
   .module-card h3 {
     font-size: 1.25rem;
+  }
+}
+
+/* Estilos para contenido no disponible */
+.practice-not-available {
+  background: white;
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  text-align: center;
+  max-width: 600px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.not-available-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.practice-not-available h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.practice-not-available p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.available-practice {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 2rem 0;
+}
+
+.available-practice strong {
+  color: #856404;
+}
+
+.practice-not-available .btn-back {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+/* Overlay para modal de login */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.overlay.blur {
+  backdrop-filter: blur(4px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

@@ -20,3 +20,57 @@
 .field { display: grid; gap: 6px; }
 .field input { padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: #f8fafc; }
 .field input:focus { border-color: #fca5a5; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); outline: none; }
+
+/* Password input wrapper */
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
+  width: 100%;
+  padding-right: 45px; /* Espacio para el botón del ojo */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+  color: rgb(220, 20, 20);
+}
+
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.hint .link {
+  color: rgb(220, 20, 20);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+}
+
+.hint .link:hover {
+  text-decoration: underline;
+}
