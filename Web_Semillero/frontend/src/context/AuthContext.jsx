@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authApi';
 
 const AuthContext = createContext(null);
@@ -15,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
   // Cargar usuario al iniciar
   useEffect(() => {
@@ -48,6 +50,12 @@ export const AuthProvider = ({ children }) => {
       const response = await authService.login(email, password);
       setUser(response.user);
       setIsAuthenticated(true);
+      
+      // Redirigir a admin si es admin, sino a home
+      if (response.user.role === 'admin') {
+        navigate('/admin/dashboard');
+      }
+      
       return { success: true, user: response.user };
     } catch (error) {
       const errorMessage = error.response?.data?.error || 'Error al iniciar sesión';

@@ -8,6 +8,7 @@ import ScrollToTop from './components/ScrollToTop'
 import AdminLayout from './components/AdminLayout'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import UsersManagement from './pages/admin/UsersManagement'
+import CoursesManagement from './pages/admin/CoursesManagement'
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="users" element={<UsersManagement />} />
+          <Route path="courses" element={<CoursesManagement />} />
         </Route>
 
         {/* Public Routes - With Header/Footer */}

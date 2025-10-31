@@ -246,8 +246,12 @@
 }
 
 .profile-menu-item.admin-item .menu-icon {
-  font-size: 1.2rem;
   color: rgb(220, 20, 20);
+}
+
+.profile-menu-item.admin-item .menu-icon svg {
+  width: 18px;
+  height: 18px;
 }
 
 .profile-menu-footer {

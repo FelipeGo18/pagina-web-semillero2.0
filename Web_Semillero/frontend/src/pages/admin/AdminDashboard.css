@@ -54,11 +54,39 @@
 
 /* Stat Icon */
 .stat-icon {
-  font-size: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 60px;
+}
+
+.stat-icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+.users-card .stat-icon {
+  color: #ff0000;
+}
+
+.students-card .stat-icon {
+  color: #000000;
+}
+
+.instructors-card .stat-icon {
+  color: #666666;
+}
+
+.admins-card .stat-icon {
+  color: #ff0000;
+}
+
+.progress-card .stat-icon {
+  color: #333333;
+}
+
+.activity-card .stat-icon {
+  color: #ff0000;
 }
 
 /* Stat Content */
@@ -93,47 +121,47 @@
 
 /* Card Colors */
 .users-card {
-  border-left: 4px solid #3498db;
+  border-left: 4px solid #ff0000;
 }
 
 .users-card .stat-number {
-  color: #3498db;
+  color: #ff0000;
 }
 
 .students-card {
-  border-left: 4px solid #2ecc71;
+  border-left: 4px solid #000000;
 }
 
 .students-card .stat-number {
-  color: #2ecc71;
+  color: #000000;
 }
 
 .instructors-card {
-  border-left: 4px solid #9b59b6;
+  border-left: 4px solid #666666;
 }
 
 .instructors-card .stat-number {
-  color: #9b59b6;
+  color: #666666;
 }
 
 .admins-card {
-  border-left: 4px solid #e74c3c;
+  border-left: 4px solid #ff0000;
 }
 
 .admins-card .stat-number {
-  color: #e74c3c;
+  color: #ff0000;
 }
 
 .progress-card {
-  border-left: 4px solid #f39c12;
+  border-left: 4px solid #333333;
 }
 
 .progress-card .stat-number {
-  color: #f39c12;
+  color: #333333;
 }
 
 .activity-card {
-  border-left: 4px solid #1abc9c;
+  border-left: 4px solid #ff0000;
 }
 
 /* Activity Summary */
@@ -161,7 +189,7 @@
 .activity-value {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #1abc9c;
+  color: #ff0000;
 }
 
 /* Responsive */
