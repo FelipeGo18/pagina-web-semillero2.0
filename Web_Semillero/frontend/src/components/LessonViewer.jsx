@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { progressService } from '../services/progressApi'
 import InteractiveTerminal from './InteractiveTerminal'
+import QuizViewer from './QuizViewer'
+import GuidedPracticeViewer from './GuidedPracticeViewer'
 import { getModuleWithCache, convertModuleToFrontendFormat } from '../services/lessonsApi'
 import { CheckIcon, BookIcon } from './Icons'
 import './LessonViewer.css'
 
-export default function LessonViewer({ moduleId = 1, practiceId = null }) {
+export default function LessonViewer({ moduleId = 1, practiceId = null, practiceType = 'linux-terminal', practiceData = null }) {
   const { isAuthenticated, user } = useAuth()
   const [currentClassIndex, setCurrentClassIndex] = useState(1)
   const [completedClasses, setCompletedClasses] = useState([])
@@ -290,13 +292,69 @@ export default function LessonViewer({ moduleId = 1, practiceId = null }) {
         )}
       </div>
 
-      {/* Terminal Interactiva con todo el contenido */}
-      <InteractiveTerminal
-        lesson={currentLesson}
-        onComplete={handleComplete}
-        onNext={currentClassIndex < totalClasses ? handleNext : null}
-        isCompleted={isCompleted}
-      />
+      {/* Terminal Interactiva o Contenido según tipo */}
+      {practiceType === 'linux-terminal' && (
+        <InteractiveTerminal
+          lesson={currentLesson}
+          onComplete={handleComplete}
+          onNext={currentClassIndex < totalClasses ? handleNext : null}
+          isCompleted={isCompleted}
+        />
+      )}
+
+      {practiceType === 'teorica' && (
+        <div className="theoretical-content">
+          {currentLesson.exercises && currentLesson.exercises.map((item, idx) => (
+            <div key={idx} className="theory-block">
+              <h3 className="theory-title">{item.title}</h3>
+              <div className="theory-content">
+                {item.content && item.content.split('\n').map((paragraph, pIdx) => (
+                  <p key={pIdx}>{paragraph}</p>
+                ))}
+              </div>
+              {item.resources && (
+                <div className="theory-resources">
+                  <h4>📚 Recursos adicionales:</h4>
+                  <ul>
+                    {item.resources.split(',').map((url, rIdx) => (
+                      <li key={rIdx}>
+                        <a href={url.trim()} target="_blank" rel="noopener noreferrer">
+                          {url.trim()}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          ))}
+          <div className="lesson-actions">
+            <button 
+              className={`complete-btn ${isCompleted ? 'completed' : ''}`}
+              onClick={handleComplete}
+              disabled={isCompleted}
+            >
+              {isCompleted ? '✅ Completada' : '✓ Marcar como completada'}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {practiceType === 'quiz' && (
+        <QuizViewer
+          questions={currentLesson.exercises || []}
+          onComplete={handleComplete}
+          isCompleted={isCompleted}
+        />
+      )}
+
+      {practiceType === 'practica-guiada' && (
+        <GuidedPracticeViewer
+          steps={currentLesson.exercises || []}
+          onComplete={handleComplete}
+          isCompleted={isCompleted}
+        />
+      )}
 
       {/* Footer con estadísticas */}
       {completedClasses.length > 0 && (

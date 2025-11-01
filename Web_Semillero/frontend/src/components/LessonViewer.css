@@ -646,3 +646,104 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
 }
+
+/* Contenido Teórico */
+.theoretical-content {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  margin-bottom: 24px;
+}
+
+.theory-block {
+  padding: 24px;
+  margin-bottom: 32px;
+  border-left: 4px solid var(--rojo-piloto);
+  background: var(--gris-claro);
+  border-radius: 8px;
+}
+
+.theory-title {
+  color: var(--gris-oscuro);
+  margin: 0 0 16px 0;
+  font-size: 1.5em;
+}
+
+.theory-content p {
+  color: var(--gris-medio);
+  line-height: 1.8;
+  margin: 12px 0;
+  font-size: 1.05em;
+}
+
+.theory-resources {
+  margin-top: 24px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+}
+
+.theory-resources h4 {
+  color: var(--gris-oscuro);
+  margin: 0 0 12px 0;
+}
+
+.theory-resources ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.theory-resources li {
+  margin: 8px 0;
+}
+
+.theory-resources a {
+  color: var(--rojo-piloto);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.theory-resources a:hover {
+  text-decoration: underline;
+  color: var(--gris-oscuro);
+}
+
+.lesson-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 2px solid #e0e0e0;
+}
+
+.complete-btn {
+  padding: 14px 48px;
+  border: none;
+  border-radius: 8px;
+  background: var(--rojo-piloto);
+  color: white;
+  font-weight: 600;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.complete-btn:hover:not(:disabled) {
+  background: var(--gris-oscuro);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 0, 0, 0.3);
+}
+
+.complete-btn.completed {
+  background: #2ecc71;
+  cursor: default;
+}
+
+.complete-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

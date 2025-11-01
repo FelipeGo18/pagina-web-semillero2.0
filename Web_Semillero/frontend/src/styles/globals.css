@@ -1,15 +1,78 @@
 :root {
+  /* Variables base existentes */
   --bg: #ffffff;
   --fg: #0f172a;
   --muted: #64748b;
-  --brand: #b91c1c; /* rojo principal */
-  --brand-dark: #991b1b; /* hover rojo oscuro */
-  --brand-light: #fee2e2; /* rojo muy suave para backgrounds */
+  --brand: #b91c1c;
+  --brand-dark: #991b1b;
+  --brand-light: #fee2e2;
   --border: #e5e7eb;
+  
+  /* ============================================
+     VARIABLES UPC - ADMIN PANEL
+     ============================================ */
+  /* Colores Principales */
+  --rojo-piloto: #ff0000;
+  --negro: #000000;
+  --blanco: #ffffff;
+  
+  /* Colores de Apoyo */
+  --gris-oscuro: #333333;
+  --gris-medio: #666666;
+  --gris-claro: #f9f9f9;
+  --borde: #e5e7eb;
+  
+  /* Sombras y Efectos */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-red: 0 4px 16px rgba(255, 0, 0, 0.2);
+  
+  /* Gradientes */
+  --gradient-red: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  --gradient-dark: linear-gradient(135deg, #000000 0%, #333333 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 100%);
 }
 * { box-sizing: border-box; }
 html, body, #root { height: 100%; }
 body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--fg); background: var(--bg); }
+
+/* Scroll suave global */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selección personalizada */
+::selection {
+  background: var(--rojo-piloto);
+  color: var(--blanco);
+}
+
+::-moz-selection {
+  background: var(--rojo-piloto);
+  color: var(--blanco);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gris-claro);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--rojo-piloto) 0%, #cc0000 100%);
+  border-radius: 10px;
+  border: 2px solid var(--gris-claro);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #cc0000 0%, #990000 100%);
+}
 
 /* Generic overlay (used by panels/modals) */
 .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.15); z-index: 30; }

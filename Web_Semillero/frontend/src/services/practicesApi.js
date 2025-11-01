@@ -1,4 +1,77 @@
 /**
+ * Actualiza una práctica existente
+ * @param {number} practiceId - ID de la práctica
+ * @param {Object} practiceData - Datos a actualizar
+ * @returns {Promise<Object>} Práctica actualizada
+ */
+export async function updatePractice(practiceId, practiceData) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/practices/${practiceId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(practiceData)
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Error al actualizar la práctica');
+    }
+    const data = await response.json();
+    return data.practice;
+  } catch (error) {
+    console.error('Error actualizando práctica:', error);
+    throw error;
+  }
+}
+
+/**
+ * Elimina una práctica existente
+ * @param {number} practiceId - ID de la práctica
+ * @returns {Promise<Object>} Práctica eliminada
+ */
+export async function deletePractice(practiceId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/practices/${practiceId}`, {
+      method: 'DELETE'
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Error al eliminar la práctica');
+    }
+    const data = await response.json();
+    return data.practice;
+  } catch (error) {
+    console.error('Error eliminando práctica:', error);
+    throw error;
+  }
+}
+/**
+ * Crea una nueva práctica
+ * @param {Object} practiceData - Datos de la práctica
+ * @returns {Promise<Object>} Práctica creada
+ */
+export async function createPractice(practiceData) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/practices`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(practiceData)
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Error al crear la práctica');
+    }
+    const data = await response.json();
+    return data.practice;
+  } catch (error) {
+    console.error('Error creando práctica:', error);
+    throw error;
+  }
+}
+/**
  * API Service para Prácticas
  * Maneja todas las peticiones relacionadas con las prácticas del semillero
  */

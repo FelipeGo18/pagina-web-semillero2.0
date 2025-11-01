@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getAllPractices } from '../../services/practicesApi';
+import { getAllPractices, createPractice, updatePractice, deletePractice, getPractice } from '../../services/practicesApi';
+import PracticeEditPage from './PracticeEditPage';
 import './CoursesManagement.css';
 
 // SVG Icons
@@ -34,9 +35,35 @@ const ModulesIcon = () => (
 const CoursesManagement = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showEditPage, setShowEditPage] = useState(false);
   const [editingCourse, setEditingCourse] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  // Accordion state for expanded modules
+  const [expandedModules, setExpandedModules] = useState([]);
+  // Accordion state for expanded classes per module (object: { [modIdx]: [clsIdx, ...] })
+  const [expandedClasses, setExpandedClasses] = useState({});
+
+  // Toggle expand/collapse for a module
+  const toggleModule = (modIdx) => {
+    setExpandedModules((prev) =>
+      prev.includes(modIdx)
+        ? prev.filter((idx) => idx !== modIdx)
+        : [...prev, modIdx]
+    );
+  };
+
+  // Toggle expand/collapse for a class inside a module
+  const toggleClass = (modIdx, clsIdx) => {
+    setExpandedClasses((prev) => {
+      const current = prev[modIdx] || [];
+      return {
+        ...prev,
+        [modIdx]: current.includes(clsIdx)
+          ? current.filter((idx) => idx !== clsIdx)
+          : [...current, clsIdx],
+      };
+    });
+  };
 
   useEffect(() => {
     // Cargar prácticas desde la API
@@ -72,29 +99,52 @@ const CoursesManagement = () => {
     setShowModal(true);
   };
 
-  const handleEdit = (course) => {
-    setEditingCourse({ ...course });
-    setShowModal(true);
+  const handleEdit = async (course) => {
+    try {
+      const fullCourse = await getPractice(course.id);
+      setEditingCourse({ ...fullCourse });
+      setShowEditPage(true);
+    } catch (err) {
+      alert('Error al cargar la práctica: ' + (err.message || ''));
+    }
   };
 
-  const handleDelete = (courseId) => {
+  const handleDelete = async (courseId) => {
     if (!window.confirm('¿Estás seguro de eliminar esta práctica?')) {
       return;
     }
-    setCourses(courses.filter(c => c.id !== courseId));
+    try {
+      await deletePractice(courseId);
+      setCourses(courses.filter(c => c.id !== courseId));
+    } catch (error) {
+      alert(error.message || 'Error al eliminar la práctica');
+    }
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    if (courses.find(c => c.id === editingCourse.id)) {
-      // Actualizar
-      setCourses(courses.map(c => c.id === editingCourse.id ? editingCourse : c));
-    } else {
-      // Crear nuevo
-      setCourses([...courses, editingCourse]);
+    const practiceData = {
+      title: editingCourse.title,
+      description: editingCourse.description,
+      icon: editingCourse.icon,
+      modules: editingCourse.modules || [],
+      // Puedes agregar más campos aquí si los usas en el formulario
+    };
+    try {
+      if (editingCourse.id && courses.find(c => c.id === editingCourse.id)) {
+        // Editar en backend
+        const updated = await updatePractice(editingCourse.id, practiceData);
+        setCourses(courses.map(c => c.id === editingCourse.id ? updated : c));
+      } else {
+        // Crear en backend
+        const newPractice = await createPractice(practiceData);
+        setCourses([...courses, newPractice]);
+      }
+      setShowModal(false);
+      setEditingCourse(null);
+    } catch (error) {
+      alert(error.message || 'Error al guardar la práctica');
     }
-    setShowModal(false);
-    setEditingCourse(null);
   };
 
   const getLevelBadge = (level) => {
@@ -112,6 +162,10 @@ const CoursesManagement = () => {
         <div className="loading">Cargando prácticas...</div>
       </div>
     );
+  }
+
+  if (showEditPage && editingCourse) {
+    return <PracticeEditPage initialPractice={editingCourse} onClose={() => { setShowEditPage(false); setEditingCourse(null); }} />;
   }
 
   return (
@@ -139,7 +193,10 @@ const CoursesManagement = () => {
       <div className="courses-grid">
         {filteredCourses.map((course) => (
           <div key={course.id} className="course-card">
-            <div className="course-icon">{course.icon}</div>
+            <div
+              className="course-icon"
+              dangerouslySetInnerHTML={{ __html: course.icon }}
+            />
             <div className="course-info">
               <h3>{course.title}</h3>
               <p>{course.description}</p>
@@ -176,68 +233,6 @@ const CoursesManagement = () => {
       {filteredCourses.length === 0 && (
         <div className="empty-state">
           <p>No se encontraron prácticas</p>
-        </div>
-      )}
-
-      {/* Modal */}
-      {showModal && editingCourse && (
-        <div className="modal-overlay" onClick={() => setShowModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{editingCourse.id ? 'Editar Práctica' : 'Nueva Práctica'}</h2>
-            <form onSubmit={handleSave}>
-              <div className="form-group">
-                <label>Título *</label>
-                <input
-                  type="text"
-                  value={editingCourse.title}
-                  onChange={(e) => setEditingCourse({ ...editingCourse, title: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Descripción *</label>
-                <textarea
-                  value={editingCourse.description}
-                  onChange={(e) => setEditingCourse({ ...editingCourse, description: e.target.value })}
-                  rows="3"
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Icono (emoji)</label>
-                <input
-                  type="text"
-                  value={editingCourse.icon}
-                  onChange={(e) => setEditingCourse({ ...editingCourse, icon: e.target.value })}
-                  maxLength="2"
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Nivel *</label>
-                <select
-                  value={editingCourse.level}
-                  onChange={(e) => setEditingCourse({ ...editingCourse, level: e.target.value })}
-                  required
-                >
-                  <option value="beginner">Principiante</option>
-                  <option value="intermediate">Intermedio</option>
-                  <option value="advanced">Avanzado</option>
-                </select>
-              </div>
-
-              <div className="modal-actions">
-                <button type="button" onClick={() => setShowModal(false)} className="btn-cancel">
-                  Cancelar
-                </button>
-                <button type="submit" className="btn-save">
-                  Guardar
-                </button>
-              </div>
-            </form>
-          </div>
         </div>
       )}
     </div>

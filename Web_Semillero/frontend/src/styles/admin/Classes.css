@@ -1,0 +1,118 @@
+/* ============================================
+   CLASES - ESTRUCTURA Y TARJETAS
+   ============================================ */
+
+.classes-list {
+  margin-top: 24px;
+  padding: 20px;
+  background: var(--gris-claro);
+  border-radius: 12px;
+  border: 1px solid var(--borde);
+}
+
+.section-label {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--rojo-piloto);
+}
+
+.section-label--small {
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+.class-card {
+  background: var(--blanco);
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.class-card:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transform: translateX(4px);
+}
+
+.class-card.expanded {
+  border-color: var(--rojo-piloto);
+  box-shadow: 0 2px 16px rgba(255, 0, 0, 0.12);
+}
+
+.class-header {
+  padding: 16px 20px;
+  background: var(--gris-oscuro);
+  color: var(--blanco);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--rojo-piloto);
+}
+
+.class-header:hover {
+  background: var(--gris-medio);
+}
+
+.class-title-preview {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--blanco);
+}
+
+.class-badge {
+  background: var(--rojo-piloto);
+  color: var(--blanco);
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.class-toggle-icon {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+  color: var(--blanco);
+}
+
+.class-card.expanded .class-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.class-details {
+  padding: 28px;
+  background: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%);
+  animation: expandDown 0.3s ease;
+}
+
+.class-title-input,
+.class-duration-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 18px;
+  background: var(--blanco);
+  color: var(--gris-oscuro);
+}
+
+.class-title-input:hover,
+.class-duration-input:hover {
+  border-color: var(--gris-medio);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.03);
+}
+
+.class-title-input:focus,
+.class-duration-input:focus {
+  outline: none;
+  border-color: var(--rojo-piloto);
+  box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.12);
+  transform: translateY(-2px);
+}

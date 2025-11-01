@@ -185,10 +185,14 @@ export default function PracticeDetailPage() {
     setSelectedModule(null)
   }
 
-  // Si hay un módulo seleccionado, verificar si es Linux o no
+  // Si hay un módulo seleccionado, verificar si tiene contenido
   if (selectedModule !== null) {
-    // Si NO es la práctica de Linux (id 1), mostrar mensaje
-    if (parseInt(id) !== 1) {
+    // Si la práctica tiene módulos con contenido, mostrar el viewer
+    const selectedModuleData = practice.modules?.find(m => m.id === selectedModule);
+    const hasContent = selectedModuleData && selectedModuleData.classes && selectedModuleData.classes.length > 0;
+    
+    // Si NO tiene contenido, mostrar mensaje
+    if (!hasContent) {
       return (
         <div className="practice-detail-page">
           <div className="practice-detail-header">
@@ -221,7 +225,7 @@ export default function PracticeDetailPage() {
       )
     }
     
-    // Si es Linux (id 1), mostrar LessonViewer normalmente
+    // Si tiene contenido, mostrar LessonViewer normalmente
     return (
       <div className="practice-detail-page">
         <div className="practice-detail-header">
@@ -233,10 +237,12 @@ export default function PracticeDetailPage() {
             <p className="practice-detail-subtitle">Módulo {selectedModule}</p>
           </div>
         </div>
-        {/* Solo cargar LessonViewer para Linux */}
+        {/* Cargar LessonViewer con el tipo correcto */}
         <LessonViewer 
           moduleId={selectedModule} 
           practiceId={parseInt(id)}
+          practiceType={practice.type || 'linux-terminal'}
+          practiceData={practice}
         />
       </div>
     )

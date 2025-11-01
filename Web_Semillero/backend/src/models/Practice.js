@@ -28,6 +28,13 @@ const PracticeSchema = new mongoose.Schema({
     required: true
   },
   
+  // Tipo de práctica: determina el formato del contenido
+  type: {
+    type: String,
+    enum: ['linux-terminal', 'teorica', 'quiz', 'practica-guiada'],
+    default: 'linux-terminal'
+  },
+  
   color: String,
   
   fullDescription: String,

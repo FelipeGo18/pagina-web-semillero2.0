@@ -1,0 +1,144 @@
+/* ============================================
+   INPUTS Y CAMPOS DE FORMULARIO
+   ============================================ */
+
+.form-group {
+  margin-bottom: 36px;
+  animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.15s; }
+.form-group:nth-child(3) { animation-delay: 0.2s; }
+.form-group:nth-child(4) { animation-delay: 0.25s; }
+.form-group:nth-child(5) { animation-delay: 0.3s; }
+
+.form-group label {
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  letter-spacing: -0.2px;
+}
+
+.form-group label::before {
+  content: '▸';
+  color: var(--rojo-piloto);
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 16px 18px;
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--blanco);
+  color: var(--gris-oscuro);
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.form-group input[type="text"]:hover,
+.form-group textarea:hover,
+.form-group select:hover {
+  border-color: var(--gris-medio);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.03);
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--rojo-piloto);
+  box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ff0000' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+/* Etiquetas de descripción */
+.field-desc {
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+}
+
+.field-desc::before {
+  content: '▸';
+  color: var(--rojo-piloto);
+  font-size: 1.1rem;
+}
+
+.field-desc-text {
+  color: #5a4a3a;
+  background: linear-gradient(135deg, #fffbf5 0%, #fff5e6 100%);
+  border-left: 5px solid var(--rojo-piloto);
+  padding: 16px 20px 16px 56px;
+  font-size: 0.95rem;
+  margin: 8px 0 18px 0;
+  display: block;
+  border-radius: 12px;
+  font-weight: 400;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  line-height: 1.7;
+  transition: all 0.3s ease;
+}
+
+.field-desc-text:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+
+.field-desc-text::before {
+  content: "💡";
+  font-size: 2rem;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: glow 2s ease-in-out infinite;
+}
+
+.field-desc-text code {
+  background: rgba(0, 0, 0, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+  font-size: 0.9em;
+  color: var(--rojo-piloto);
+  font-weight: 600;
+}
+
+.field-title {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.08em;
+  margin-bottom: 2px;
+  gap: 8px;
+}

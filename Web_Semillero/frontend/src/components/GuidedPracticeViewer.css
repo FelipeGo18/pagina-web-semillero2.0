@@ -1,0 +1,493 @@
+/* GuidedPracticeViewer.css */
+
+.guided-practice-viewer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Header */
+.practice-header {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.practice-info h2 {
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  font-size: 1.8em;
+}
+
+.practice-info p {
+  color: #7f8c8d;
+  margin: 0;
+}
+
+.practice-progress {
+  margin-top: 24px;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.progress-text {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.progress-percent {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #3498db;
+}
+
+.progress-bar {
+  height: 12px;
+  background: #ecf0f1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  transition: width 0.5s ease;
+  border-radius: 6px;
+}
+
+/* Lista de pasos */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.step-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  border-left: 4px solid #e0e0e0;
+}
+
+.step-card.completed {
+  border-left-color: #2ecc71;
+}
+
+.step-card.expanded {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.step-card.locked {
+  opacity: 0.6;
+  background: #f8f9fa;
+}
+
+/* Header del paso */
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.step-card:not(.locked) .step-header:hover {
+  background: #f8f9fa;
+}
+
+.step-number-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ecf0f1;
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 1.2em;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.step-number.completed {
+  background: #2ecc71;
+  color: white;
+}
+
+.lock-icon {
+  font-size: 1.2em;
+}
+
+.step-title-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.step-title {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.2em;
+}
+
+.completed-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: #d1fae5;
+  color: #047857;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.expand-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #ecf0f1;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.1em;
+}
+
+.expand-btn:hover:not(:disabled) {
+  background: #bdc3c7;
+}
+
+.expand-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Contenido del paso */
+.step-content {
+  padding: 0 24px 24px 24px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step-description,
+.step-code,
+.step-notes {
+  margin-bottom: 24px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.step-description {
+  background: #f8f9fa;
+  border-left: 3px solid #3498db;
+}
+
+.step-description h4,
+.step-code h4,
+.step-notes h4 {
+  margin: 0 0 12px 0;
+  color: #2c3e50;
+  font-size: 1.1em;
+}
+
+.step-description p,
+.step-notes p {
+  margin: 8px 0;
+  color: #34495e;
+  line-height: 1.6;
+}
+
+.step-code {
+  background: #2c3e50;
+  color: #ecf0f1;
+  position: relative;
+}
+
+.step-code pre {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.step-code code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85em;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+
+.step-notes {
+  background: #fff8e1;
+  border-left: 3px solid #f39c12;
+}
+
+/* Acciones del paso */
+.step-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding-top: 16px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.complete-step-btn,
+.undo-step-btn {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.complete-step-btn {
+  background: #2ecc71;
+  color: white;
+}
+
+.complete-step-btn:hover {
+  background: #27ae60;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
+.undo-step-btn {
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.undo-step-btn:hover {
+  background: #bdc3c7;
+}
+
+/* Mensaje de bloqueo */
+.step-locked-message {
+  padding: 16px 24px;
+  text-align: center;
+  color: #7f8c8d;
+}
+
+/* Completado */
+.practice-completion {
+  margin: 32px 0;
+}
+
+.completion-card {
+  background: white;
+  border-radius: 16px;
+  padding: 48px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  border-top: 4px solid #2ecc71;
+}
+
+.completion-icon {
+  font-size: 4em;
+  margin-bottom: 16px;
+}
+
+.completion-card h3 {
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.completion-card p {
+  color: #7f8c8d;
+  margin-bottom: 24px;
+}
+
+.completion-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #d1fae5;
+  color: #047857;
+  border-radius: 24px;
+  font-weight: 600;
+}
+
+/* Resumen lateral */
+.practice-summary {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-top: 32px;
+}
+
+.practice-summary h4 {
+  color: #2c3e50;
+  margin: 0 0 20px 0;
+  font-size: 1.2em;
+}
+
+.summary-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-label {
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.summary-value {
+  font-weight: 700;
+  font-size: 1.2em;
+  color: #2c3e50;
+}
+
+.summary-value.completed {
+  color: #2ecc71;
+}
+
+.quick-nav h5 {
+  color: #2c3e50;
+  margin: 0 0 12px 0;
+}
+
+.quick-nav-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 8px;
+}
+
+.quick-nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  color: #2c3e50;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quick-nav-btn:hover:not(:disabled) {
+  border-color: #3498db;
+  background: #e3f2fd;
+  transform: scale(1.1);
+}
+
+.quick-nav-btn.completed {
+  background: #2ecc71;
+  border-color: #2ecc71;
+  color: white;
+}
+
+.quick-nav-btn.active {
+  border-color: #3498db;
+  background: #3498db;
+  color: white;
+}
+
+.quick-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Estados vacíos */
+.no-steps {
+  background: white;
+  border-radius: 12px;
+  padding: 48px;
+  text-align: center;
+  color: #7f8c8d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .guided-practice-viewer {
+    padding: 16px;
+  }
+  
+  .practice-header {
+    padding: 24px;
+  }
+  
+  .step-header {
+    padding: 16px;
+  }
+  
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1em;
+  }
+  
+  .step-title {
+    font-size: 1em;
+  }
+  
+  .step-content {
+    padding: 0 16px 16px 16px;
+  }
+  
+  .completion-card {
+    padding: 32px 24px;
+  }
+  
+  .quick-nav-buttons {
+    grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+  }
+  
+  .quick-nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
