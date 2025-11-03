@@ -8,9 +8,7 @@ const ModuleSchema = new mongoose.Schema({
   // ID del módulo (1, 2, 3, etc.)
   moduleId: {
     type: Number,
-    required: true,
-    unique: true,
-    index: true
+    required: true
   },
   
   // Información básica

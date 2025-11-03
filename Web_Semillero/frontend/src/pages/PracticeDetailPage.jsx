@@ -189,6 +189,7 @@ export default function PracticeDetailPage() {
   if (selectedModule !== null) {
     // Si la práctica tiene módulos con contenido, mostrar el viewer
     const selectedModuleData = practice.modules?.find(m => m.id === selectedModule);
+    const moduleIndex = practice.modules?.findIndex(m => m.id === selectedModule) + 1; // Índice basado en 1
     const hasContent = selectedModuleData && selectedModuleData.classes && selectedModuleData.classes.length > 0;
     
     // Si NO tiene contenido, mostrar mensaje
@@ -201,7 +202,7 @@ export default function PracticeDetailPage() {
             </button>
             <div className="practice-detail-title-section">
               <h1>{practice.title}</h1>
-              <p className="practice-detail-subtitle">Módulo {selectedModule}</p>
+              <p className="practice-detail-subtitle">Módulo {moduleIndex}{selectedModuleData?.title ? `: ${selectedModuleData.title}` : ''}</p>
             </div>
           </div>
           <div className="practice-not-available">
@@ -210,12 +211,7 @@ export default function PracticeDetailPage() {
             </div>
             <h2>Contenido en Desarrollo</h2>
             <p>
-              El contenido interactivo para esta práctica estará disponible próximamente. 
-              Por ahora, puedes revisar los módulos y objetivos de aprendizaje.
-            </p>
-            <p className="available-practice">
-              <LightbulbIcon size={20} style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-              <strong>Práctica disponible:</strong> Aprende Linux tiene contenido completo con clases interactivas.
+              Este módulo aún no tiene contenido. Puedes agregar clases desde el panel de administración.
             </p>
             <button className="btn-back" onClick={backToModules}>
               ← Volver a Módulos
@@ -234,12 +230,12 @@ export default function PracticeDetailPage() {
           </button>
           <div className="practice-detail-title-section">
             <h1>{practice.title}</h1>
-            <p className="practice-detail-subtitle">Módulo {selectedModule}</p>
+            <p className="practice-detail-subtitle">Módulo {moduleIndex}{selectedModuleData?.title ? `: ${selectedModuleData.title}` : ''}</p>
           </div>
         </div>
         {/* Cargar LessonViewer con el tipo correcto */}
         <LessonViewer 
-          moduleId={selectedModule} 
+          moduleId={moduleIndex}
           practiceId={parseInt(id)}
           practiceType={practice.type || 'linux-terminal'}
           practiceData={practice}
@@ -256,11 +252,19 @@ export default function PracticeDetailPage() {
         </button>
         <div className="practice-detail-title-section">
           <div className="practice-detail-icon">
-            <span dangerouslySetInnerHTML={{ __html: practice.icon }} />
+            {practice.iconSvg ? (
+              practice.iconSvg.startsWith('data:image') ? (
+                <img src={practice.iconSvg} alt={practice.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              ) : (
+                <span dangerouslySetInnerHTML={{ __html: practice.iconSvg }} />
+              )
+            ) : (
+              <span dangerouslySetInnerHTML={{ __html: practice.icon }} />
+            )}
           </div>
           <div>
             <h1>{practice.title}</h1>
-            <p className="practice-detail-subtitle">{practice.description}</p>
+            <div className="practice-detail-subtitle" dangerouslySetInnerHTML={{ __html: practice.description }} />
           </div>
         </div>
         <div className="practice-progress">
@@ -308,7 +312,7 @@ export default function PracticeDetailPage() {
                       </div>
                     </div>
                     <h3>{module.title}</h3>
-                    <p>{module.description}</p>
+                    <div dangerouslySetInnerHTML={{ __html: module.description }} />
                     <div className="module-info">
                       <span className="module-duration">
                         <ClockIcon size={16} style={{ verticalAlign: 'middle', marginRight: '4px' }} />

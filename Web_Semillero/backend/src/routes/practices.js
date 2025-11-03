@@ -12,6 +12,9 @@ const formatPracticeResponse = (practice) => {
     title: practice.title,
     description: practice.description,
     icon: practice.icon,
+    iconSvg: practice.iconSvg,
+    level: practice.level,
+    type: practice.type,
     color: practice.color,
     fullDescription: practice.fullDescription,
     objectives: practice.objectives,
@@ -152,9 +155,16 @@ router.get('/:id', async (req, res) => {
       });
     }
 
-    // Enriquecer módulos y clases con ejercicios completos desde Module
+    // Log temporal para debug
+    console.log('🔍 GET - Práctica desde DB:', {
+      title: practice.title,
+      modulesCount: practice.modules?.length,
+      firstModuleClasses: practice.modules?.[0]?.classes?.length,
+      firstClassSections: practice.modules?.[0]?.classes?.[0]?.sections
+    });
+
+    // Enriquecer módulos y clases con ejercicios completos desde Module, pero sin perder otros campos (como sections)
     const enrichedModules = await Promise.all((practice.modules || []).map(async (mod) => {
-      // Buscar el módulo en la colección Module por título o id
       const moduleDoc = await Module.findOne({
         $or: [
           { moduleId: mod.id },
@@ -162,30 +172,83 @@ router.get('/:id', async (req, res) => {
         ]
       }).lean();
 
-      // Si no hay clases, devolver el módulo tal cual
+      console.log('🔍 Módulo encontrado en DB:', {
+        modTitle: mod.title,
+        moduleDocFound: !!moduleDoc,
+        moduleDocTitle: moduleDoc?.title,
+        classesInModule: moduleDoc?.classes ? Object.keys(moduleDoc.classes).length : 0
+      });
+
       if (!mod.classes || mod.classes.length === 0) {
         return mod;
       }
 
-      // Enriquecer cada clase con ejercicios si existen en el módulo
       const enrichedClasses = mod.classes.map(cls => {
-        let exercises = [];
+        // Buscar la clase correspondiente en Module
+        let exercisesFromModule = null;
+        let sectionsFromModule = null;
+        
         if (moduleDoc && moduleDoc.classes) {
-          // Buscar la clase por id o título
           const classEntry = Object.values(moduleDoc.classes).find(c =>
             (c.id && c.id === cls.id) || (c.title && c.title === cls.title)
           );
-          if (classEntry && Array.isArray(classEntry.exercises)) {
-            exercises = classEntry.exercises;
+          
+          if (classEntry) {
+            console.log('📚 Clase encontrada en Module:', {
+              clsTitle: cls.title,
+              hasSections: !!classEntry.sections,
+              sectionsCount: classEntry.sections?.length,
+              hasExercises: !!classEntry.exercises,
+              exercisesCount: classEntry.exercises?.length
+            });
+            
+            // Obtener ejercicios si existen
+            if (Array.isArray(classEntry.exercises)) {
+              exercisesFromModule = classEntry.exercises;
+            }
+            // Obtener sections si existen
+            if (Array.isArray(classEntry.sections)) {
+              sectionsFromModule = classEntry.sections;
+            }
+          } else {
+            console.log('⚠️ Clase NO encontrada en Module:', cls.title);
           }
         }
-        return { ...cls, exercises };
+        
+        // Construir el objeto de la clase enriquecida
+        const enrichedClass = { ...cls };
+        
+        // Agregar exercises desde Module (o desde Practice si no hay en Module)
+        if (exercisesFromModule) {
+          enrichedClass.exercises = exercisesFromModule;
+        }
+        
+        // Agregar sections desde Module (o desde Practice si no hay en Module)
+        if (sectionsFromModule) {
+          enrichedClass.sections = sectionsFromModule;
+        }
+        
+        console.log('✅ Clase enriquecida:', {
+          title: enrichedClass.title,
+          sectionsCount: enrichedClass.sections?.length,
+          exercisesCount: enrichedClass.exercises?.length
+        });
+        
+        return enrichedClass;
       });
 
       return { ...mod, classes: enrichedClasses };
     }));
 
     const enrichedPractice = { ...practice, modules: enrichedModules };
+
+    // Log temporal para debug
+    console.log('✅ GET - Práctica enriquecida:', {
+      title: enrichedPractice.title,
+      modulesCount: enrichedPractice.modules?.length,
+      firstModuleClasses: enrichedPractice.modules?.[0]?.classes?.length,
+      firstClassSections: enrichedPractice.modules?.[0]?.classes?.[0]?.sections
+    });
 
     res.json({
       success: true,

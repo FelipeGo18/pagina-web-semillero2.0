@@ -251,7 +251,7 @@ export default function QuizViewer({ questions = [], onComplete, isCompleted }) 
                     {q.explanation && (
                       <div className="explanation">
                         <strong>💡 Explicación:</strong>
-                        <p>{q.explanation}</p>
+                        <div dangerouslySetInnerHTML={{ __html: q.explanation }} />
                       </div>
                     )}
                   </div>

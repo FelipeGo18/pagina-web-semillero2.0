@@ -13,6 +13,7 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
   const [currentClassIndex, setCurrentClassIndex] = useState(1)
   const [completedClasses, setCompletedClasses] = useState([])
   const [moduleLessons, setModuleLessons] = useState({})
+  const [moduleInfo, setModuleInfo] = useState(null) // Información del módulo (título, descripción)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -23,13 +24,41 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
         setLoading(true)
         setError(null)
         
-        // Si viene desde una práctica y no es Linux (practiceId 1), mostrar mensaje
-        if (practiceId && practiceId !== 1) {
-          setError('El contenido de esta práctica estará disponible próximamente. Por ahora, solo la práctica de Linux tiene contenido completo.')
-          setLoading(false)
-          return
+        // Si practiceData viene directamente (desde PracticeDetailPage), usarlo
+        if (practiceData && practiceData.modules) {
+          // moduleId ahora es el índice (1, 2, 3...), obtener el módulo por índice
+          const moduleData = practiceData.modules[moduleId - 1]; // Array empieza en 0
+          if (!moduleData || !moduleData.classes || moduleData.classes.length === 0) {
+            setError('Este módulo aún no tiene contenido. Agrega clases desde el panel de administración.');
+            setLoading(false);
+            return;
+          }
+          
+          // Guardar información del módulo
+          setModuleInfo({
+            title: moduleData.title || `Módulo ${moduleId}`,
+            description: moduleData.description || ''
+          });
+          
+          // Convertir al formato esperado por el componente
+          const converted = {};
+          moduleData.classes.forEach((cls, idx) => {
+            converted[idx + 1] = {
+              id: cls.id || `${moduleId}.${idx + 1}`,
+              title: cls.title || `Clase ${idx + 1}`,
+              description: cls.description || '',
+              duration: cls.duration || '',
+              sections: cls.sections || [],
+              exercises: cls.exercises || []
+            };
+          });
+          
+          setModuleLessons(converted);
+          setLoading(false);
+          return;
         }
         
+        // Fallback: cargar desde la API (para prácticas antiguas/legacy)
         const moduleData = await getModuleWithCache(moduleId)
         const converted = convertModuleToFrontendFormat(moduleData)
         
@@ -43,7 +72,7 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
     }
 
     loadModule()
-  }, [moduleId, practiceId])
+  }, [moduleId, practiceId, practiceData])
 
   // Cargar progreso del usuario
   useEffect(() => {
@@ -148,7 +177,14 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
     return (
       <div className="lesson-viewer">
         <div className="error-state">
-          <h2>⚠️ Error al cargar</h2>
+          <div className="error-icon" style={{ fontSize: '3rem', marginBottom: '1rem' }}>
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: '#e53935' }}>
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+              <path d="M12 8v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              <circle cx="12" cy="16" r="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <h2>Error al cargar</h2>
           <p>{error}</p>
           <button onClick={() => window.location.reload()} className="retry-btn">
             Reintentar
@@ -177,10 +213,8 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
       {/* Header del módulo */}
       <div className="module-header">
         <div className="module-info">
-          <h1>Módulo {moduleId}: {getModuleName(moduleId)}</h1>
-          <p className="module-description">
-            {getModuleDescription(moduleId)}
-          </p>
+          <h1>Módulo {moduleId}{moduleInfo?.title ? `: ${moduleInfo.title}` : ''}</h1>
+          <div className="module-description" dangerouslySetInnerHTML={{ __html: moduleInfo?.description || getModuleDescription(moduleId) }} />
         </div>
       </div>
 
@@ -225,7 +259,7 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
                 title={isLocked ? 'Completa las lecciones anteriores' : ''}
               >
                 <div className="class-card-header">
-                  <span className="class-number">Clase {lesson.id}</span>
+                  <span className="class-number">Clase {moduleId}.{index}</span>
                   {completed && (
                     <span className="check-icon">
                       <CheckIcon size={16} />
@@ -235,7 +269,7 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
                   {current && <span className="current-badge">Actual</span>}
                 </div>
                 <h4 className="class-title">{lesson.title}</h4>
-                <p className="class-description">{lesson.description}</p>
+                <div className="class-description" dangerouslySetInnerHTML={{ __html: lesson.description }} />
                 {lesson.exercises && (
                   <div className="class-meta">
                     <span>📝 {lesson.exercises.length} ejercicios</span>
@@ -262,7 +296,7 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
           </button>
           <div className="current-class-badge">
             <span className="badge-label">Lección Actual</span>
-            <span className="badge-value">{currentLesson.id}</span>
+            <span className="badge-value">{moduleId}.{currentClassIndex}</span>
           </div>
           <button 
             className="nav-btn next-btn"
@@ -279,7 +313,7 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
       <div className="current-lesson-info">
         <div className="lesson-title-section">
           <h2>{currentLesson.title}</h2>
-          <p className="lesson-description">{currentLesson.description}</p>
+          <div className="lesson-description" dangerouslySetInnerHTML={{ __html: currentLesson.description }} />
         </div>
         
         {isCompleted && (

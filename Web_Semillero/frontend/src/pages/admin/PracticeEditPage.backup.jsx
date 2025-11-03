@@ -253,14 +253,7 @@ const PracticeEditPage = ({ initialPractice = null, onClose }) => {
       <button className="btn-back" type="button" onClick={handleBack}>
         ← Volver
       </button>
-      <h1 style={{display:'flex',alignItems:'center',gap:'12px'}}>
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="4" width="18" height="16" rx="4" fill="none" stroke="#e53935" strokeWidth="2"/>
-          <path d="M7 9h7M7 13h4" stroke="#222" strokeWidth="1.5" strokeLinecap="round"/>
-          <path d="M16.5 17.5l2.5-2.5-2-2-2.5 2.5V19h2z" fill="#e53935" stroke="#e53935" strokeWidth="1.2"/>
-        </svg>
-        {initialPractice ? 'Editar práctica' : 'Nueva práctica'}
-      </h1>
+      <h1>{initialPractice ? 'Editar práctica' : 'Nueva práctica'}</h1>
       <form onSubmit={handleSave} className="practice-edit-form">
         <div className="form-group">
           <label>Título *</label>
@@ -752,10 +745,22 @@ const PracticeEditPage = ({ initialPractice = null, onClose }) => {
                                               />
                                               {/* Mensaje de ayuda eliminado, solo disponible en el campo principal de icono */}
                                               {/* Eliminado input y preview de SVG en secciones, solo disponible en el campo principal de icono */}
-                                              <button type="button" className="btn-delete-section" onClick={() => {
-                                                const modules = [...editingCourse.modules];
-                                                modules[modIdx].classes[clsIdx].sections.splice(secIdx, 1);
-                                                handleChange({ ...editingCourse, modules });
+                                              <button type="button" className="btn-delete-section" onClick={async () => {
+                                                const result = await Swal.fire({
+                                                  title: '¿Eliminar sección?',
+                                                  text: 'Esta acción no se puede deshacer. ¿Deseas eliminar esta sección?',
+                                                  icon: 'warning',
+                                                  showCancelButton: true,
+                                                  confirmButtonColor: '#d33',
+                                                  cancelButtonColor: '#3085d6',
+                                                  confirmButtonText: 'Eliminar',
+                                                  cancelButtonText: 'Cancelar'
+                                                });
+                                                if (result.isConfirmed) {
+                                                  const modules = [...editingCourse.modules];
+                                                  modules[modIdx].classes[clsIdx].sections.splice(secIdx, 1);
+                                                  handleChange({ ...editingCourse, modules });
+                                                }
                                               }}>
                                                 <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                   <rect x="5" y="6.5" width="10" height="9" rx="2" stroke="#c00" strokeWidth="2"/>
@@ -1117,10 +1122,22 @@ const PracticeEditPage = ({ initialPractice = null, onClose }) => {
                                                 </span>
                                               </div>
                                             )}
-                                            <button type="button" className="btn-delete-exercise" onClick={() => {
-                                              const modules = [...editingCourse.modules];
-                                              modules[modIdx].classes[clsIdx].exercises.splice(exIdx, 1);
-                                              handleChange({ ...editingCourse, modules });
+                                            <button type="button" className="btn-delete-exercise" onClick={async () => {
+                                              const result = await Swal.fire({
+                                                title: '¿Eliminar ejercicio?',
+                                                text: 'Esta acción no se puede deshacer. ¿Deseas eliminar este ejercicio?',
+                                                icon: 'warning',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#d33',
+                                                cancelButtonColor: '#3085d6',
+                                                confirmButtonText: 'Eliminar',
+                                                cancelButtonText: 'Cancelar'
+                                              });
+                                              if (result.isConfirmed) {
+                                                const modules = [...editingCourse.modules];
+                                                modules[modIdx].classes[clsIdx].exercises.splice(exIdx, 1);
+                                                handleChange({ ...editingCourse, modules });
+                                              }
                                             }}>
                                               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                                                 <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1161,19 +1178,31 @@ const PracticeEditPage = ({ initialPractice = null, onClose }) => {
                                           newItem = { ...newItem, title: '', content: '', resources: '' };
                                         } else if (editingCourse.type === 'quiz') {
                                           newItem = { ...newItem, question: '', title: '', options: '', correctAnswer: '', explanation: '' };
-                                        } else if (editingCourse.type === 'practica-guiada') {
-                                          newItem = { ...newItem, title: '', description: '', code: '', notes: '' };
-                                        }
-                                        modules[modIdx].classes[clsIdx].exercises.push(newItem);
-                                        handleChange({ ...editingCourse, modules });
-                                      }}>
-                                        + Agregar {
-                                          editingCourse.type === 'linux-terminal' ? 'ejercicio' :
-                                          editingCourse.type === 'teorica' ? 'contenido' :
-                                          editingCourse.type === 'quiz' ? 'pregunta' :
-                                          'paso'
-                                        }
                                       </button>
+                                    </div>
+                                    <button type="button" className="btn-delete-class" onClick={async () => {
+                                      const result = await Swal.fire({
+                                        title: '¿Eliminar clase?',
+                                        text: 'Esta acción no se puede deshacer. ¿Deseas eliminar esta clase?',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#d33',
+                                        cancelButtonColor: '#3085d6',
+                                        confirmButtonText: 'Eliminar',
+                                        cancelButtonText: 'Cancelar'
+                                      });
+                                      if (result.isConfirmed) {
+                                        const modules = [...editingCourse.modules];
+                                        modules[modIdx].classes.splice(clsIdx, 1);
+                                        handleChange({ ...editingCourse, modules });
+                                        setExpandedClasses({
+                                          ...expandedClasses,
+                                          [modIdx]: (expandedClasses[modIdx] || []).filter(idx => idx !== clsIdx)
+                                        });
+                                      }
+                                    }}>
+                                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                                        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     </div>
                                     <button type="button" className="btn-delete-class" onClick={() => {
                                       const modules = [...editingCourse.modules];

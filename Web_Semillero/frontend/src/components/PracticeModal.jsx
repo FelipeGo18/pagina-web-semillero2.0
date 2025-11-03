@@ -30,10 +30,15 @@ export default function PracticeModal({ practice, onClose }) {
           <div 
             className="practice-modal-icon"
           >
-            <span 
-              className="practice-icon-large" 
-              dangerouslySetInnerHTML={{ __html: practice.icon }}
-            />
+            {practice.iconSvg ? (
+              practice.iconSvg.startsWith('data:image') ? (
+                <img src={practice.iconSvg} alt={practice.title} className="practice-icon-large" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              ) : (
+                <span className="practice-icon-large" dangerouslySetInnerHTML={{ __html: practice.iconSvg }} />
+              )
+            ) : (
+              <span className="practice-icon-large" dangerouslySetInnerHTML={{ __html: practice.icon }} />
+            )}
           </div>
           <h2 className="practice-modal-title">{practice.title}</h2>
         </div>
@@ -41,7 +46,7 @@ export default function PracticeModal({ practice, onClose }) {
         <div className="practice-modal-body">
           <div className="practice-section">
             <h3>Descripción</h3>
-            <p>{practice.fullDescription || practice.description}</p>
+            <div dangerouslySetInnerHTML={{ __html: practice.fullDescription || practice.description }} />
           </div>
 
           {practice.objectives && (

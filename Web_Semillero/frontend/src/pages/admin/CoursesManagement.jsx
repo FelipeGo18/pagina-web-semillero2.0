@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getAllPractices, createPractice, updatePractice, deletePractice, getPractice } from '../../services/practicesApi';
+import { useNavigate } from 'react-router-dom';
 import PracticeEditPage from './PracticeEditPage';
+import Swal from 'sweetalert2';
 import './CoursesManagement.css';
 
 // SVG Icons
@@ -38,6 +40,7 @@ const CoursesManagement = () => {
   const [showEditPage, setShowEditPage] = useState(false);
   const [editingCourse, setEditingCourse] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
   // Accordion state for expanded modules
   const [expandedModules, setExpandedModules] = useState([]);
   // Accordion state for expanded classes per module (object: { [modIdx]: [clsIdx, ...] })
@@ -88,15 +91,7 @@ const CoursesManagement = () => {
   );
 
   const handleCreate = () => {
-    setEditingCourse({
-      id: Date.now(),
-      title: '',
-      description: '',
-      icon: '🎓',
-      level: 'beginner',
-      modules: []
-    });
-    setShowModal(true);
+    navigate('/admin/practices/new');
   };
 
   const handleEdit = async (course) => {
@@ -110,14 +105,40 @@ const CoursesManagement = () => {
   };
 
   const handleDelete = async (courseId) => {
-    if (!window.confirm('¿Estás seguro de eliminar esta práctica?')) {
+    const result = await Swal.fire({
+      title: '¿Eliminar práctica?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e53935',
+      cancelButtonColor: '#666',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (!result.isConfirmed) {
       return;
     }
+
     try {
       await deletePractice(courseId);
       setCourses(courses.filter(c => c.id !== courseId));
+      
+      Swal.fire({
+        title: '¡Eliminada!',
+        text: 'La práctica ha sido eliminada correctamente',
+        icon: 'success',
+        confirmButtonColor: '#e53935',
+        timer: 2000,
+        showConfirmButton: false
+      });
     } catch (error) {
-      alert(error.message || 'Error al eliminar la práctica');
+      Swal.fire({
+        title: 'Error',
+        text: error.message || 'Error al eliminar la práctica',
+        icon: 'error',
+        confirmButtonColor: '#e53935'
+      });
     }
   };
 
@@ -193,13 +214,20 @@ const CoursesManagement = () => {
       <div className="courses-grid">
         {filteredCourses.map((course) => (
           <div key={course.id} className="course-card">
-            <div
-              className="course-icon"
-              dangerouslySetInnerHTML={{ __html: course.icon }}
-            />
+            <div className="course-icon">
+              {course.iconSvg ? (
+                course.iconSvg.startsWith('data:image') ? (
+                  <img src={course.iconSvg} alt={course.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                ) : (
+                  <span dangerouslySetInnerHTML={{ __html: course.iconSvg }} />
+                )
+              ) : (
+                <span dangerouslySetInnerHTML={{ __html: course.icon }} />
+              )}
+            </div>
             <div className="course-info">
               <h3>{course.title}</h3>
-              <p>{course.description}</p>
+              <div dangerouslySetInnerHTML={{ __html: course.description }} />
               <div className="course-meta">
                 <span className={`level-badge level-${course.level}`}>
                   {getLevelBadge(course.level)}

@@ -7,9 +7,7 @@ const PracticeSchema = new mongoose.Schema({
   // ID de la práctica (1, 2, 3, etc.)
   practiceId: {
     type: Number,
-    required: true,
-    unique: true,
-    index: true
+    required: true
   },
   
   // Información básica
@@ -25,7 +23,13 @@ const PracticeSchema = new mongoose.Schema({
   
   icon: {
     type: String,
-    required: true
+    required: false,
+    default: ''
+  },
+  
+  iconSvg: {
+    type: String,
+    required: false
   },
   
   // Tipo de práctica: determina el formato del contenido
@@ -33,6 +37,13 @@ const PracticeSchema = new mongoose.Schema({
     type: String,
     enum: ['linux-terminal', 'teorica', 'quiz', 'practica-guiada'],
     default: 'linux-terminal'
+  },
+  
+  // Nivel de dificultad
+  level: {
+    type: String,
+    enum: ['beginner', 'intermediate', 'advanced'],
+    default: 'beginner'
   },
   
   color: String,
@@ -56,7 +67,12 @@ const PracticeSchema = new mongoose.Schema({
     classes: [{
       id: String,
       title: String,
-      duration: String
+      duration: String,
+      sections: [{
+        title: String,
+        content: String
+      }],
+      exercises: [mongoose.Schema.Types.Mixed] // Para mantener compatibilidad con ejercicios
     }]
   }],
   

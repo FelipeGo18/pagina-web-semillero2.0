@@ -19,15 +19,20 @@ export default function PracticeCard({ practice }) {
         }}
       >
         <div className="practice-card-icon">
-          <span 
-            className="practice-icon" 
-            dangerouslySetInnerHTML={{ __html: practice.icon }}
-          />
+          {practice.iconSvg ? (
+            practice.iconSvg.startsWith('data:image') ? (
+              <img src={practice.iconSvg} alt={practice.title} className="practice-icon" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            ) : (
+              <span className="practice-icon" dangerouslySetInnerHTML={{ __html: practice.iconSvg }} />
+            )
+          ) : (
+            <span className="practice-icon" dangerouslySetInnerHTML={{ __html: practice.icon }} />
+          )}
         </div>
         
         <div className="practice-card-content">
           <h3 className="practice-card-title">{practice.title}</h3>
-          <p className="practice-card-description">{practice.description}</p>
+          <div className="practice-card-description" dangerouslySetInnerHTML={{ __html: practice.description }} />
         </div>
 
         <div className="practice-card-footer">
