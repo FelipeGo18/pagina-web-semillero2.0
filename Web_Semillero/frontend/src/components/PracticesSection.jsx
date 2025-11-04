@@ -3,15 +3,25 @@ import PracticeCard from './PracticeCard'
 import './PracticesSection.css'
 import { getPracticesWithCache } from '../services/practicesApi'
 import { XCircleIcon } from './Icons'
-import logoSemillero from '../assets/logo_semillero.png'
-import abejaComputador from '../assets/Abeja Computador.png'
+import { useSearch } from '../context/SearchContext'
 
 export default function PracticesSection() {
-  const [currentImage, setCurrentImage] = useState(0);
   const [practices, setPractices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const images = [logoSemillero, abejaComputador];
+  const { searchTerm } = useSearch();
+  
+  // Filtrar prácticas según el término de búsqueda
+  const filteredPractices = practices.filter(practice => {
+    if (!searchTerm.trim()) return true;
+    
+    const searchLower = searchTerm.toLowerCase();
+    const titleMatch = practice.title?.toLowerCase().includes(searchLower);
+    const descriptionMatch = practice.description?.toLowerCase().includes(searchLower);
+    const categoryMatch = practice.category?.toLowerCase().includes(searchLower);
+    
+    return titleMatch || descriptionMatch || categoryMatch;
+  });
   
   // Cargar prácticas desde la API
   useEffect(() => {
@@ -32,13 +42,8 @@ export default function PracticesSection() {
     loadPractices();
   }, []);
   
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 4000); // Cambia cada 4 segundos
 
-    return () => clearInterval(interval);
-  }, []);
+  // (Eliminado) Scroll automático al buscar. Ahora solo se hace scroll al dar click en sugerencia del buscador.
 
   const scrollToPractices = () => {
     const practicesContent = document.querySelector('.practices-content-section');
@@ -49,46 +54,13 @@ export default function PracticesSection() {
 
   return (
     <section className="practices-section">
-      <div className="practices-header-section">
-        <div className="practices-container">
-          <h2 className="practices-title">Prácticas del Semillero</h2>
-          <p className="practices-subtitle">
-            Explora nuestras prácticas interactivas y comienza tu viaje en el mundo de la tecnología
-          </p>
-          <div className="practices-mascot-container">
-            <img 
-              src={logoSemillero} 
-              alt="Mascota del Semillero" 
-              className={`practices-mascot mascot-logo ${currentImage === 0 ? 'active' : ''}`}
-            />
-            <img 
-              src={abejaComputador} 
-              alt="Abeja Computador" 
-              className={`practices-mascot mascot-abeja ${currentImage === 1 ? 'active' : ''}`}
-            />
-          </div>
-          <button 
-            className="scroll-to-practices-btn"
-            onClick={scrollToPractices}
-            aria-label="Ver prácticas"
-          >
-            <span>Empecemos</span>
-            <svg 
-              width="20" 
-              height="20" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2"
-            >
-              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-      
       <div className="practices-content-section">
-        <p className="practices-subtitle2">Escoge una practica</p>
+        <p className="practices-subtitle2">
+          {searchTerm.trim() 
+            ? `Resultados para "${searchTerm}" (${filteredPractices.length})`
+            : 'Escoge una práctica'
+          }
+        </p>
         <div className="practices-container">
           {loading && (
             <div className="loading-state">
@@ -109,9 +81,23 @@ export default function PracticesSection() {
             </div>
           )}
           
-          {!loading && !error && (
+          {!loading && !error && filteredPractices.length === 0 && searchTerm.trim() && (
+            <div className="no-results-state">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+                <path d="M11 8v6"/>
+                <path d="M8 11h6"/>
+              </svg>
+              <h3>No se encontraron resultados</h3>
+              <p>No hay prácticas que coincidan con "{searchTerm}"</p>
+              <p className="suggestion">Intenta con otros términos de búsqueda</p>
+            </div>
+          )}
+          
+          {!loading && !error && filteredPractices.length > 0 && (
             <div className="practices-grid">
-              {practices.map((practice) => (
+              {filteredPractices.map((practice) => (
                 <PracticeCard key={practice.id} practice={practice} />
               ))}
             </div>

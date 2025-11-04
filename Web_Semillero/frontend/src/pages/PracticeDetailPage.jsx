@@ -202,7 +202,22 @@ export default function PracticeDetailPage() {
             </button>
             <div className="practice-detail-title-section">
               <h1>{practice.title}</h1>
-              <p className="practice-detail-subtitle">Módulo {moduleIndex}{selectedModuleData?.title ? `: ${selectedModuleData.title}` : ''}</p>
+              <p className="practice-detail-subtitle">
+                {(() => {
+                  if (!selectedModuleData?.title) return `Módulo ${moduleIndex}`;
+                  // Si el título ya contiene 'Módulo' y el número, no anteponer nada
+                  const moduloLabel = `Módulo ${moduleIndex}`;
+                  if (selectedModuleData.title.trim().startsWith(moduloLabel)) {
+                    return selectedModuleData.title;
+                  }
+                  // Si el título contiene 'Módulo' pero no el número, igual anteponer el número
+                  if (/^M[oó]dulo/i.test(selectedModuleData.title.trim())) {
+                    return `${moduloLabel}: ${selectedModuleData.title.trim().replace(/^M[oó]dulo\s*:?\s*/i, '')}`;
+                  }
+                  // Si no contiene 'Módulo', anteponerlo
+                  return `${moduloLabel}: ${selectedModuleData.title}`;
+                })()}
+              </p>
             </div>
           </div>
           <div className="practice-not-available">
@@ -230,7 +245,19 @@ export default function PracticeDetailPage() {
           </button>
           <div className="practice-detail-title-section">
             <h1>{practice.title}</h1>
-            <p className="practice-detail-subtitle">Módulo {moduleIndex}{selectedModuleData?.title ? `: ${selectedModuleData.title}` : ''}</p>
+            <p className="practice-detail-subtitle">
+              {(() => {
+                if (!selectedModuleData?.title) return `Módulo ${moduleIndex}`;
+                const moduloLabel = `Módulo ${moduleIndex}`;
+                if (selectedModuleData.title.trim().startsWith(moduloLabel)) {
+                  return selectedModuleData.title;
+                }
+                if (/^M[oó]dulo/i.test(selectedModuleData.title.trim())) {
+                  return `${moduloLabel}: ${selectedModuleData.title.trim().replace(/^M[oó]dulo\s*:?\s*/i, '')}`;
+                }
+                return `${moduloLabel}: ${selectedModuleData.title}`;
+              })()}
+            </p>
           </div>
         </div>
         {/* Cargar LessonViewer con el tipo correcto */}

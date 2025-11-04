@@ -9,6 +9,7 @@ export default function PracticeCard({ practice }) {
     <>
       <div 
         className="practice-card"
+        id={`practice-${practice.id}`}
         onClick={() => setShowModal(true)}
         role="button"
         tabIndex={0}

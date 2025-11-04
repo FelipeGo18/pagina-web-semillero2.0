@@ -1,0 +1,147 @@
+/* ========================================
+   PRACTICES HEADER SECTION
+   ======================================== */
+
+.practices-header-section {
+  background: #ff0000;
+  padding: 2rem 2rem 3rem 2rem;
+  position: relative;
+}
+
+.practices-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.practices-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.025em;
+  position: relative;
+  z-index: 1;
+}
+
+.practices-subtitle {
+  font-size: 1.1rem;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  line-height: 1.6;
+}
+
+.practices-mascot-container {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  position: relative;
+  z-index: 1;
+  height: 350px;
+  align-items: center;
+}
+
+.practices-mascot {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+  transition: opacity 1s ease-in-out;
+  position: absolute;
+  opacity: 0;
+  object-fit: contain;
+  animation: float 3s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Tamaño específico para el logo del semillero */
+.mascot-logo {
+  width: 300px;
+  height: auto;
+}
+
+/* Tamaño específico para la abeja */
+.mascot-abeja {
+  width: 280px;
+  height: auto;
+}
+
+.practices-mascot.active {
+  opacity: 1;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.scroll-to-practices-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  color: #ff0000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 2rem auto 0;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-to-practices-btn:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.scroll-to-practices-btn:active {
+  transform: scale(0.95);
+}
+
+.scroll-to-practices-btn svg {
+  width: 20px;
+  height: 20px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .practices-title {
+    font-size: 2rem;
+  }
+
+  .practices-subtitle {
+    font-size: 1rem;
+  }
+
+  .practices-mascot-container {
+    height: 280px;
+  }
+
+  .mascot-logo,
+  .mascot-abeja {
+    width: 200px;
+  }
+
+  .practices-header-section {
+    padding: 1.5rem 1rem 2rem 1rem;
+  }
+}

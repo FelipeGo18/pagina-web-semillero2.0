@@ -210,13 +210,7 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
 
   return (
     <div className="lesson-viewer">
-      {/* Header del módulo */}
-      <div className="module-header">
-        <div className="module-info">
-          <h1>Módulo {moduleId}{moduleInfo?.title ? `: ${moduleInfo.title}` : ''}</h1>
-          <div className="module-description" dangerouslySetInnerHTML={{ __html: moduleInfo?.description || getModuleDescription(moduleId) }} />
-        </div>
-      </div>
+
 
       {/* Barra de progreso superior */}
       <div className="lesson-progress-bar">
@@ -254,7 +248,17 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
               <button
                 key={index}
                 className={`class-card ${completed ? 'completed' : ''} ${current ? 'current' : ''} ${isLocked ? 'locked' : ''}`}
-                onClick={() => goToClass(index)}
+                onClick={() => {
+                  goToClass(index);
+                  setTimeout(() => {
+                    const el = document.getElementById('lesson-content-main');
+                    if (el) {
+                      const yOffset = -140; // Ajusta este valor según el alto de tu header/borde
+                      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                  }, 100);
+                }}
                 disabled={isLocked}
                 title={isLocked ? 'Completa las lecciones anteriores' : ''}
               >
@@ -309,13 +313,17 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
         </div>
       </div>
 
-      {/* Información de la lección actual */}
+      {/* Información de la lección actual y header de módulo limpio */}
       <div className="current-lesson-info">
         <div className="lesson-title-section">
-          <h2>{currentLesson.title}</h2>
+          {/* Mostrar solo el título del módulo, sin duplicar 'Módulo 1:' */}
+          {moduleInfo && (
+            <h1 style={{ fontWeight: 'bold', fontSize: '2rem', marginBottom: 0 }}>{moduleInfo.title}</h1>
+          )}
+          {/* Título de la lección */}
+          <h2 style={{ marginTop: 0 }}>{currentLesson.title}</h2>
           <div className="lesson-description" dangerouslySetInnerHTML={{ __html: currentLesson.description }} />
         </div>
-        
         {isCompleted && (
           <div className="completed-badge">
             <span className="badge-icon">
@@ -326,53 +334,56 @@ export default function LessonViewer({ moduleId = 1, practiceId = null, practice
         )}
       </div>
 
-      {/* Terminal Interactiva o Contenido según tipo */}
-      {practiceType === 'linux-terminal' && (
-        <InteractiveTerminal
-          lesson={currentLesson}
-          onComplete={handleComplete}
-          onNext={currentClassIndex < totalClasses ? handleNext : null}
-          isCompleted={isCompleted}
-        />
-      )}
 
-      {practiceType === 'teorica' && (
-        <div className="theoretical-content">
-          {currentLesson.exercises && currentLesson.exercises.map((item, idx) => (
-            <div key={idx} className="theory-block">
-              <h3 className="theory-title">{item.title}</h3>
-              <div className="theory-content">
-                {item.content && item.content.split('\n').map((paragraph, pIdx) => (
-                  <p key={pIdx}>{paragraph}</p>
-                ))}
-              </div>
-              {item.resources && (
-                <div className="theory-resources">
-                  <h4>📚 Recursos adicionales:</h4>
-                  <ul>
-                    {item.resources.split(',').map((url, rIdx) => (
-                      <li key={rIdx}>
-                        <a href={url.trim()} target="_blank" rel="noopener noreferrer">
-                          {url.trim()}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+      {/* Terminal Interactiva o Contenido según tipo */}
+      <div id="lesson-content-main">
+        {practiceType === 'linux-terminal' && (
+          <InteractiveTerminal
+            lesson={currentLesson}
+            onComplete={handleComplete}
+            onNext={currentClassIndex < totalClasses ? handleNext : null}
+            isCompleted={isCompleted}
+          />
+        )}
+
+        {practiceType === 'teorica' && (
+          <div className="theoretical-content">
+            {currentLesson.exercises && currentLesson.exercises.map((item, idx) => (
+              <div key={idx} className="theory-block">
+                <h3 className="theory-title">{item.title}</h3>
+                <div className="theory-content">
+                  {item.content && item.content.split('\n').map((paragraph, pIdx) => (
+                    <p key={pIdx}>{paragraph}</p>
+                  ))}
                 </div>
-              )}
+                {item.resources && (
+                  <div className="theory-resources">
+                    <h4>📚 Recursos adicionales:</h4>
+                    <ul>
+                      {item.resources.split(',').map((url, rIdx) => (
+                        <li key={rIdx}>
+                          <a href={url.trim()} target="_blank" rel="noopener noreferrer">
+                            {url.trim()}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))}
+            <div className="lesson-actions">
+              <button 
+                className={`complete-btn ${isCompleted ? 'completed' : ''}`}
+                onClick={handleComplete}
+                disabled={isCompleted}
+              >
+                {isCompleted ? '✅ Completada' : '✓ Marcar como completada'}
+              </button>
             </div>
-          ))}
-          <div className="lesson-actions">
-            <button 
-              className={`complete-btn ${isCompleted ? 'completed' : ''}`}
-              onClick={handleComplete}
-              disabled={isCompleted}
-            >
-              {isCompleted ? '✅ Completada' : '✓ Marcar como completada'}
-            </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {practiceType === 'quiz' && (
         <QuizViewer

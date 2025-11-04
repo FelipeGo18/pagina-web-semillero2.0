@@ -59,7 +59,21 @@ const AdminDashboard = () => {
       try {
         setLoading(true);
         const data = await adminService.getStats();
-        setStats(data);
+        // Adaptar para extraer los datos de la estructura anidada
+        if (data && data.stats) {
+          setStats({
+            totalUsers: data.stats.users.total,
+            totalStudents: data.stats.users.students,
+            totalInstructors: data.stats.users.instructors,
+            totalAdmins: data.stats.users.admins,
+            activeUsers: data.stats.users.active,
+            recentUsers: data.stats.users.recent,
+            totalProgress: data.stats.progress.total,
+            completedPractices: data.stats.progress.completed
+          });
+        } else {
+          setStats(null);
+        }
         setError(null);
       } catch (err) {
         console.error('Error fetching stats:', err);

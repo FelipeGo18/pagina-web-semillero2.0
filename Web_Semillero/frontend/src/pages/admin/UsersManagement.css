@@ -208,6 +208,19 @@
   width: 90%;
   max-width: 500px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border: none !important;
+  outline: none !important;
+}
+
+/* Eliminar cualquier pseudo-elemento rojo que agregue borde */
+.modal-content::-webkit-scrollbar-thumb,
+.modal-content::-webkit-scrollbar-track,
+.modal-content::-webkit-scrollbar,
+.modal-content:after,
+.modal-content:before {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .modal-content h2 {

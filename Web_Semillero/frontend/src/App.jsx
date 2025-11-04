@@ -12,11 +12,13 @@ import CoursesManagement from './pages/admin/CoursesManagement'
 import PracticeCreatePage from './pages/admin/PracticeCreatePage'
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
+import { SearchProvider } from './context/SearchContext'
 
 function App() {
   return (
     <AuthProvider>
-      <Routes>
+      <SearchProvider>
+        <Routes>
         {/* Admin Routes - No Header/Footer */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<AdminDashboard />} />
@@ -42,6 +44,7 @@ function App() {
           </>
         } />
       </Routes>
+      </SearchProvider>
     </AuthProvider>
   )
 }

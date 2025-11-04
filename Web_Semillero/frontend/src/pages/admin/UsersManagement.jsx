@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import { adminService } from '../../services/adminApi';
 import { useAuth } from '../../context/AuthContext';
 import './UsersManagement.css';
@@ -50,6 +51,7 @@ const UsersManagement = () => {
     setPage(1);
   };
 
+
   const handleEditUser = (user) => {
     setEditingUser({ ...user });
     setShowEditModal(true);
@@ -73,20 +75,26 @@ const UsersManagement = () => {
 
   const handleDeleteUser = async (userId, username) => {
     if (userId === currentUser._id) {
-      alert('No puedes eliminarte a ti mismo');
+      Swal.fire('No permitido', 'No puedes eliminarte a ti mismo', 'error');
       return;
     }
-
-    if (!window.confirm(`¿Estás seguro de eliminar al usuario "${username}"?`)) {
-      return;
-    }
-
+    const result = await Swal.fire({
+      title: '¿Estás seguro de eliminar?',
+      text: `¿Quieres eliminar al usuario "${username}"?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    });
+    if (!result.isConfirmed) return;
     try {
       await adminService.deleteUser(userId);
       fetchUsers();
     } catch (err) {
       console.error('Error deleting user:', err);
-      alert(err.response?.data?.message || 'Error al eliminar usuario');
+      Swal.fire('Error', err.response?.data?.message || 'Error al eliminar usuario', 'error');
     }
   };
 
@@ -178,7 +186,7 @@ const UsersManagement = () => {
                           className="btn-edit"
                           title="Editar usuario"
                         >
-                          ✏️
+                          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="#333333" d="M3 21V3h10.925l-2 2H5v14h14v-6.95l2-2V21zm6-6v-4.25L19.625.125L23.8 4.4L13.25 15zM21.025 4.4l-1.4-1.4zM11 13h1.4l5.8-5.8l-.7-.7l-.725-.7L11 11.575zm6.5-6.5l-.725-.7zl.7.7z"/></svg>
                         </button>
                         <button 
                           onClick={() => handleDeleteUser(user._id, user.username)}
@@ -186,7 +194,7 @@ const UsersManagement = () => {
                           title="Eliminar usuario"
                           disabled={user._id === currentUser._id}
                         >
-                          🗑️
+                          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="#333333" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM8 9h8v10H8zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
                         </button>
                       </div>
                     </td>
